@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mglf.dao.UserAccessMapper">
+
+	<resultMap id="userAccessMap" type="UserAccess">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="USER_TYPE" jdbcType="INTEGER" property="userType" />
+		<result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+		<result column="OPER_TYPE" jdbcType="INTEGER" property="operType" />
+		<result column="OPER_IP" jdbcType="VARCHAR" property="operIp" />
+		<result column="OPER_DATETIME" jdbcType="TIMESTAMP" property="operDatetime" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.mglf.entity.UserAccess">
+		insert into t_user_access
+		  (
+			id,
+			USER_TYPE,
+			USER_ID,
+			OPER_TYPE,
+			OPER_IP,
+			OPER_DATETIME
+		   )
+		values
+		  (
+			#{id,jdbcType=VARCHAR},
+			#{userType,jdbcType=INTEGER},			
+			#{userId,jdbcType=VARCHAR},
+			#{operType,jdbcType=INTEGER},
+			#{operIp,jdbcType=VARCHAR},
+			SYSDATE()
+		   )
+	</insert>
+	
+</mapper>

@@ -1,0 +1,1 @@
+尊敬的${phone}用户：您好！你的好友${friendName}已经将您添加到我推荐人才库，点击链接查看个人信息http://192.168.1.40/per/perFriend/activateInfo?uuid=${key}
