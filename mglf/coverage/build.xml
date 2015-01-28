@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="hdfs_poster" basedir="." default="coverage">
+	
+	<!-- Global properties for the build -->
+	<property name="jar-name" value="hdfs_poster.jar" />
+	<property name="lib-base" value="${basedir}/../WebContent/WEB-INF/lib" />
+	<property name="lib-dir" value="${basedir}/../coverage/lib" /> 
+	<property name="src-dir" value="${basedir}/../" />
+	<property name="src-core-dir" value="D:\\java-develop\\workspace\\BlueCore\\src" />
+	<property name="resources-dir" value="${src-dir}/src/resource" />
+	<property name="src-java-dir" value="${src-dir}/src" />
+	<property name="src-test-dir" value="${src-dir}/src/test" />
+	<property name="build-dir" value="${basedir}/target" />
+	<property name="build-class-dir" value="${build-dir}/classes/" />
+	<property name="build-java-dir" value="${build-class-dir}/java" />
+	<property name="build-test-dir" value="${build-class-dir}/test" />
+	<property name="instrumented-dir" value="${build-class-dir}/instrumented-cobertura" />
+	<property name="report-dir" value="${build-dir}/report" />
+	<property name="cobertura.ser" value="${basedir}/cobertura.ser" />
+
+	<path id="cobertura.classpath">
+	    <fileset dir="${lib-dir}/cobertura">
+	        <include name="*.jar" />
+	    </fileset>
+	</path>
+	<path id="tomcat.classpath">
+	    <fileset dir="${lib-dir}/tomcat">
+	        <include name="*.jar" />
+	    </fileset>
+	</path>
+	<taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+
+	<target name="prepare">
+	    <echo>${basedir}</echo> 
+		<mkdir dir="${build-dir}" />
+		<mkdir dir="${build-java-dir}" />
+		<mkdir dir="${build-test-dir}" />
+		<delete>
+			<fileset dir="${build-dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</delete>
+	</target>
+	<!-- <target name="compile-src.core" depends="prepare">
+		<javac srcdir="${src-core-dir}" destdir="${build-java-dir}" debug="true">
+			<classpath>
+				<fileset dir="${lib-base}" /> 
+			</classpath>
+			<classpath refid="tomcat.classpath"/>
+		</javac>
+		
+	</target> -->
+	<target name="compile-core-src.main" depends="prepare">
+		<javac srcdir="${src-core-dir}" destdir="${build-java-dir}" debug="true" includeantruntime="on">
+			<classpath>
+				<fileset dir="${lib-base}" />
+			</classpath>
+			<classpath refid="tomcat.classpath"/>
+		</javac> 
+	</target>
+	<target name="compile-src.main" depends="compile-core-src.main">
+		<javac srcdir="${src-java-dir}" destdir="${build-java-dir}" debug="true" includeantruntime="on">
+			<classpath>
+				<fileset dir="${lib-base}" />
+			</classpath>
+			<classpath refid="tomcat.classpath"/>
+		</javac> 
+	</target>
+
+	<target name="compile-src.test" depends="compile-src.main">
+		<javac srcdir="${src-test-dir}" destdir="${build-test-dir}" includeantruntime="on">
+			<classpath>
+				<fileset dir="${lib-base}" />
+				<pathelement location="${build-java-dir}" />
+			</classpath>
+			<classpath refid="tomcat.classpath"/>
+		</javac>
+	
+       <copy  overwrite="true" todir="${build-test-dir}/config/" >
+			<fileset dir="${src-core-dir}/config">
+				<include name="**" />
+			</fileset>
+		</copy>
+		<copy  overwrite="true" todir="${build-test-dir}/config/" >
+			<fileset dir="${resources-dir}/config">
+				<include name="**" />
+			</fileset>
+		</copy>
+		<mkdir dir="${build-test-dir}/templet/" />
+		<copy  overwrite="true" todir="${build-test-dir}/templet/" >
+			<fileset dir="${src-core-dir}/templet">
+				<include name="**" />
+			</fileset>
+		</copy>
+		<copy  overwrite="true" todir="${build-java-dir}">
+                         <fileset dir="${src-core-dir}" includes="***.txt" />
+                         
+       </copy>
+			<copy  overwrite="true" todir="${build-java-dir}">
+                         <fileset dir="${src-java-dir}/dao" includes="***.txt" />
+                         <fileset dir="${src-java-dir}/dto" includes="***.txt" />
+                         <fileset dir="${src-java-dir}/resource" includes="***.txt" />
+                         <fileset dir="${src-java-dir}/service" includes="***.txt" />
+                         <fileset dir="${src-java-dir}/web" includes="***.txt" />
+                         <!--  <fileset dir="src/util" includes="***.txt" />-->
+       </copy>
+	</target>
+
+	<target name="instrument" depends="compile-src.test">
+		<!-- Remove the coverage data file and any old instrumentation.  -->
+		<delete file="${cobertura.ser}" />
+		<delete dir="${instrumented-dir}" />
+
+		<cobertura-instrument todir="${instrumented-dir}">
+		    <ignore regex="org.apache.log4j.*" /> 
+			<fileset dir="${build-java-dir}">
+				<!-- <include name="**/*.class" /> -->
+				<include name="**/per*.class" />
+				<exclude name="**/*Test.class" />
+				<exclude name="**/per/dao*.class" />
+				<exclude name="**/per/dao/*.class" />
+				<exclude name="**/per/dto/*.class" />
+				<exclude name="**/perdto/*.class" />
+				<exclude name="**/per*.class" />
+				<exclude name="**/perutil/*.class" />
+				<exclude name="**/persingle/*.class" />
+				<exclude name="**/pertag/*.class" />
+				<exclude name="**/persevlet/*.class" />
+				<exclude name="**/perexception/*.class" />
+				<exclude name="**/perfilter/*.class" />
+				<exclude name="**/perfilter/*.class" />
+				<exclude name="**/constants/*.class" />
+		              
+		    </fileset>
+		    
+		</cobertura-instrument>
+		
+	</target>
+		        	
+	<target name="testWithJUnit" depends="instrument,compile-src.test">
+		<mkdir dir="${report-dir}/junit-xml" />
+		
+		<junit fork="yes" dir="${basedir}"  printsummary="yes" haltonerror="no" haltonfailure="no" showoutput="yes" includeantruntime="true" >
+			<sysproperty key="net.sourceforge.cobertura.datafile" file="${cobertura.ser}" />
+
+			<!--
+				Note the classpath order: instrumented classes are before the
+				original (uninstrumented) classes.  This is important.
+			-->
+			<classpath location="${instrumented-dir}"/>
+			<classpath location="${build-test-dir}"/>
+			<classpath location="${build-java-dir}"/>
+			<classpath refid="cobertura.classpath" />
+			
+			<classpath>
+				<fileset dir="${lib-base}">
+					<include name="*.jar" />
+				</fileset>
+				
+				<pathelement location="${build-test-dir}" />
+			</classpath>
+			<classpath refid="tomcat.classpath"/>
+			<formatter type="xml" />
+			<batchtest todir="${report-dir}/junit-xml" unless="testcase">
+				<fileset dir="${src-test-dir}">
+					<include name="**/perApplicantJobControllerTest.java" />
+					<exclude name="**/BaseDaoTest.java"></exclude>
+					<exclude name="**/BaseServiceTest.java"></exclude>
+					<exclude name="**/BaseControllerTest.java"></exclude>
+				</fileset>
+			</batchtest>
+		</junit>
+		
+		<!--generate the report -->
+		<mkdir dir="${report-dir}/junit-html" />
+		<junitreport todir="${report-dir}/junit-html">
+			<fileset dir="${report-dir}/junit-xml">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report todir="${report-dir}/junit-html" />
+		</junitreport>
+		
+	</target>
+
+	<target name="coverage-report-html">
+		<mkdir dir="${report-dir}/cobertura-html" />
+		<cobertura-report datafile="${cobertura.ser}" destdir="${report-dir}/cobertura-html" srcdir="${src-java-dir}">
+			<fileset dir="${src-java-dir}">
+				<include name="**/per*.java" />
+			</fileset>
+		</cobertura-report>
+		
+		<cobertura-report format="xml" destdir="${report-dir}/cobertura-html" srcdir="${src-java-dir}">
+			<fileset dir="${src-java-dir}">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${src-test-dir}">
+				<include name="**/*.java" />
+			</fileset>
+		</cobertura-report>
+	</target>
+
+	<target name="coverage" depends="testWithJUnit,coverage-report-html" description="Compile, instrument ourself, run the tests and generate JUnit and coverage reports." />
+ 
+	<target name="noCompileCoverage" depends="testWithJUnit,coverage-report-html" description="Compile, instrument ourself, run the tests and generate JUnit and coverage reports." />
+	
+	 
+
+</project>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd  
+            http://www.springframework.org/schema/context  
+            http://www.springframework.org/schema/context/spring-context-3.2.xsd  
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+            http://www.springframework.org/schema/jdbc  
+            http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd 
+            http://www.springframework.org/schema/task 
+            http://www.springframework.org/schema/task/spring-task-3.2.xsd
+            http://www.springframework.org/schema/mvc
+			http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+            http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
+			http://www.springframework.org/schema/cache
+			http://www.springframework.org/schema/cache/spring-cache-3.2.xsd">
+			
+    
+
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+	<property name="locations">  
+		<list>
+		<value>classpath:config/sys.properties</value>
+		<value>classpath:config/db.properties</value>
+		<value>classpath:config/email.properties</value>
+		</list>
+	</property>  
+</bean>  
+
+<import resource="springmvc-mybatis.xml" />
+
+<import resource="springmvc-core-service.xml" />
+
+
+<!-- 数据源1配置 -->
+	<bean id="writeDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>${ds1_mysql.url}</value>
+		</property>
+		<property name="username">
+			<value>${ds1_mysql.username}</value>
+		</property>
+		<property name="password">
+			<value>${ds1_mysql.password}</value>
+		</property>
+		
+		<property name="maxActive">
+			<value>${ds_maxActive}</value>
+		</property>
+		
+        <property name="removeAbandoned" value="true" />  
+        <property name="removeAbandonedTimeout" value="180" />  
+        
+        <property name="validationQuery" value="SELECT 1" />
+        <property name="testWhileIdle" value="true" />
+     	<property name="testOnBorrow" value="false" />
+     	<property name="timeBetweenEvictionRunsMillis" value="30000" />
+        <property name="minEvictableIdleTimeMillis" value="1800000" />
+        <property name="numTestsPerEvictionRun" value="10" />
+	</bean>
+
+	<bean id="readDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>${ds2_mysql.url}</value>
+		</property>
+		<property name="username">
+			<value>${ds2_mysql.username}</value>
+		</property>
+		<property name="password">
+			<value>${ds2_mysql.password}</value>
+		</property>
+		
+		<property name="maxActive">
+			<value>${ds_maxActive}</value>
+		</property>
+		
+		<property name="validationQuery" value="SELECT 1" />
+	    <property name="removeAbandoned" value="true" />  
+        <property name="removeAbandonedTimeout" value="180" />
+        
+        <property name="testWhileIdle" value="true" />
+     	<property name="testOnBorrow" value="false" />
+     	<property name="timeBetweenEvictionRunsMillis" value="30000" />
+        <property name="minEvictableIdleTimeMillis" value="1800000" />
+        <property name="numTestsPerEvictionRun" value="10" />
+	</bean>
+	
+	<bean id="dataSource" class="com.mglf.dao.datasource.DynamicDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<!-- write -->
+				<entry key="write" value-ref="writeDataSource" />
+				<!-- read -->
+				<entry key="read" value-ref="readDataSource" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="readDataSource" />
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
+		<property name="mapperLocations">
+		    <list>
+		        <value>classpath:com/mglf/biz/dao/mapper/*Mapper.xml</value>
+			</list>        
+		</property>
+	</bean>
+	
+	<!--事务处理-->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+	<!-- 拦截器 -->
+	<bean id="transactionInterceptor" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="select*">PROPAGATION_REQUIRED, readOnly</prop>
+				<prop key="get*">PROPAGATION_REQUIRED, readOnly</prop>   
+                <prop key="insert*">PROPAGATION_REQUIRED</prop>   
+                <prop key="save*">PROPAGATION_REQUIRED</prop>   
+                <prop key="delete*">PROPAGATION_REQUIRED</prop>   
+                <prop key="update*">PROPAGATION_REQUIRED</prop>  
+			</props>
+		</property>
+	</bean>
+
+	<!-- 配置数据库注解aop -->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+    <bean id="manyDataSourceAspect" class="com.mglf.dao.datasource.DataSourceAspect" />
+    <aop:config>
+        <aop:aspect id="aspect" ref="manyDataSourceAspect">
+           <aop:pointcut id="tx" expression="(execution(* com.mglf.biz.service.*.*.*(..))) or (execution(* com.mglf.biz.service.*.*(..))) or (execution(* com.mglf.biz.service.*.*.*.*(..))) "/>
+            <aop:before pointcut-ref="tx" method="before"/>
+        </aop:aspect>
+    </aop:config>
+    
+	<!-- 启用缓存注解功能，这个是必须的，否则注解不会生效，另外，该注解一定要声明在spring主配置文件中才会生效 -->  
+	<cache:annotation-driven cache-manager="cacheManager"/>
+  
+	<!-- spring自己的缓存管理器，这里定义了两个缓存位置名称 ，既注解中的value -->  
+	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">  
+	    <property name="caches">  
+	        <set>  
+	            <bean  
+	                class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"  
+	                p:name="default" />  
+	        </set>  
+	    </property>  
+	</bean>	
+
+	<tx:annotation-driven transaction-manager="transactionManager"/> 
+	
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource"
+		p:basename="i18n/messages" />
+
+
+	 
+	<context:component-scan base-package="com.mglf.biz.service" />
+
+	
+	<import resource="springmvc-security.xml" />
+   
+	
+</beans>

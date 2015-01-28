@@ -1,0 +1,52 @@
+To attach as a Java agent, activate with the following JVM option:
+
+  -javaagent:/path/to/com.agitar.coverage.agent.jar[=/path/to/properties/file | ={include.wildcard.*}]
+
+Optional agent arguments - If arguments following the equals sign are surrounded by curly braces, the agent assumes it is a wildcard pattern to set the includes (see description of includes property below). Otherwise, the agent assumes it is the path to the properties file.
+
+Properties file - If provided in agent arguments, the agent will use settings in it. If specified, the agent will use that file, and if it doesn't exist, will terminate the process with an error. If the agent argument specifying the properties file uses a relative path, the agent will first look for the file relative to the current working directory. If not found, the agent will look relative to the user home directory. If not found, it will terminate the process with an error. This file must adhere to the standard Java properties file format (for details, please refer to the Javadoc API text for the store() and load() methods of java.util.Properties). Also see sample_coverage_agent.properties for an example properties file.
+
+Default properties file - If agent arguments do not specify properties file (e.g.: the user gives curly brace arguments, or specifies no arguments), then the agent will look for a file named agitar_coverage_agent.properties under the user home directory. If such a file exists, it will use the settings in that file. Otherwise, it will use defaults as defined below.
+
+Recognized properties and default values - Any of the following may be set in the properties file (also see sample_coverage_agent.properties):
+ - includes = Wildcard pattern to match classes to instrument. Note: Patterns specified via curly-brace-style agent arguments take precedence over this. (default: empty/none).
+ - excludes = Wildcard pattern to match classes to exclude from instrumentation. (default: empty/none).
+ - coverage_dir = Directory where agent writes coverage files. (default: agitar_coverage subdirectory under user home directory).
+ - coverage_file_base_name = Filename prefix for coverage file (will be appended with timestamp). (default: agitar_coverage).
+ - periodic_dump = Frequency, in seconds, for agent to dump coverage to a file. Note: There is a 30-second minimum. If set lower, it will dump every 30 seconds. (default: 0 / no periodic dump).
+ - control_port = UDP port where agent will listen for control packets (default: 8180).
+
+To decide whether to instrument a class, the agent will check that its name matches any of the wildcards in the includes AND does NOT match any of the wildcards in the excludes.
+
+Examples:
+
+Attach agent with settings in agitar_coverage_agent.properties file under current user home directory, using defaults if it doesn't exist
+  -javaagent:/usr/tools/com.agitar.coverage.agent.jar
+
+Attach agent to instrument classes in com.acme.* and net.acmelib.* (other settings taken from agitar_coverage_agent.properties in home directory, or defaults)
+  -javaagent:/usr/tools/com.agitar.coverage.agent.jar={com.acme.*,net.acmelib.*}
+
+Attach agent using settings in /home/user/agent.properties
+  -javaagent:/usr/tools/com.agitar.coverage.agent.jar=/home/user/agent.properties
+
+
+
+
+To use as Agitar coverage agent control client, run as an executable jar with the following arguments:
+  [host] [port] command
+where:
+  host - Hostname/IP where coverage agent is running; default=localhost
+  port - Port number on host where coverage agent is running; default=8180
+  command - One of:
+    DUMP - Write current coverage data
+    RESET - Zero out coverage counters
+    DUMPANDRESET - Write current coverage and zero out counters
+
+Examples:
+
+Send command to dump current coverage to agent running on local machine, listening on port 8180
+  java -jar com.agitar.coverage.agent.jar DUMP
+
+Send command to dump current coverage and reset counters to agent on testpc, listening on port 8100
+  java -jar com.agitar.coverage.agent.jar testpc 8100 DUMPANDRESET
+ 
