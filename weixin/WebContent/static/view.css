@@ -1,0 +1,103 @@
+body,input,select,textarea,button {
+	font-size: 14px/22px;
+	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti,
+		MingLiu /* 中文是为了兼容opera*/;
+}
+#header{
+	height: 45px;
+	line-height: 45px;
+	
+}
+#header a img{
+	vertical-align: middle;
+	margin: 0px 15px;
+}
+#header a{
+	height: 43px;
+	line-height: 43px;
+	color: #FFFFFF;
+	top: 0;
+	margin: 0;
+	text-decoration: none;
+	font-size: 18px;
+}
+#job-title{
+	color: #267cb4;
+	font-size: 18px;
+}
+#job-title img{
+	margin-left: 10px;
+	vertical-align: top;
+}
+#job-title p{
+	font-size: 14px;
+	color: #a8a7a7;
+}
+.job-span{
+	margin-top: 20px;
+	border: 1px #e3e3e3 solid;
+	background: #f7f8fa;
+	padding: 15px;
+	color: #bebdbd;
+	font-size: 16px;
+}
+.bom-dashed{
+	border-bottom:1px dashed #c1cedd;
+	padding:0px 0px 20px 0px;
+	clear: both;
+}
+.bom-dashed ul{
+	clear: both;
+	float: left;
+	padding: 0px;
+	width: 100%;
+	margin-bottom: 0px;
+}
+.bom-dashed ul li{
+	list-style: none;
+	float: left;
+	width: 49%;
+}
+.bom-dashed .job-blue{
+	color: #3a9edf;
+}
+.mtop{
+	margin-top: 20px;
+}
+
+.job-o{
+	color: #fdab4a;
+}
+.job-t{
+	color: #3a9edf;
+	padding:20px 0px;
+}
+.job-c{
+	font-size: 14px;
+}
+#companyinfo{
+	border:1px solid #E3E3E3;
+	background: #F7F8FA;
+	height: 90px;
+}
+#company-name{
+	color: #267cb4;
+	font-weight: bold;
+	font-size: 20px;
+}
+#companyinfo img{
+	margin-left:10px;
+}
+#company-text{
+	margin: 15px 0px 0px 20px;
+}
+#blue-btn{
+	background: #4da5de;
+	color: #FFFFFF;
+	border: 1px #4da5de solid;
+}
+#green-btn{
+	background: #5ed495;
+	color: #FFFFFF;
+	border: 1px #5ed495 solid;
+}

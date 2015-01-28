@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mglf.dao.StockMapper" >
+  <resultMap id="BaseResultMap" type="com.mglf.entity.Stock" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="entid" property="entid" jdbcType="VARCHAR" />
+    <result column="prd_type_id" property="prdTypeId" jdbcType="VARCHAR" />
+    <result column="all" property="all" jdbcType="INTEGER" />
+    <result column="leave" property="leave" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, entid, prd_type_id, all, leave
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_stock
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_stock
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.mglf.entity.Stock" >
+    insert into t_stock (id, entid, prd_type_id, 
+      all, leave)
+    values (#{id,jdbcType=VARCHAR}, #{entid,jdbcType=VARCHAR}, #{prdTypeId,jdbcType=VARCHAR}, 
+      #{all,jdbcType=INTEGER}, #{leave,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mglf.entity.Stock" >
+    insert into t_stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="entid != null" >
+        entid,
+      </if>
+      <if test="prdTypeId != null" >
+        prd_type_id,
+      </if>
+      <if test="all != null" >
+        all,
+      </if>
+      <if test="leave != null" >
+        leave,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="entid != null" >
+        #{entid,jdbcType=VARCHAR},
+      </if>
+      <if test="prdTypeId != null" >
+        #{prdTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="all != null" >
+        #{all,jdbcType=INTEGER},
+      </if>
+      <if test="leave != null" >
+        #{leave,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mglf.entity.Stock" >
+    update t_stock
+    <set >
+      <if test="entid != null" >
+        entid = #{entid,jdbcType=VARCHAR},
+      </if>
+      <if test="prdTypeId != null" >
+        prd_type_id = #{prdTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="all != null" >
+        all = #{all,jdbcType=INTEGER},
+      </if>
+      <if test="leave != null" >
+        leave = #{leave,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mglf.entity.Stock" >
+    update t_stock
+    set entid = #{entid,jdbcType=VARCHAR},
+      prd_type_id = #{prdTypeId,jdbcType=VARCHAR},
+      all = #{all,jdbcType=INTEGER},
+      leave = #{leave,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

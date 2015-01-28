@@ -1,0 +1,74 @@
+body,input,select,textarea,button {
+	font-size: 14px/22px;
+	font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti,
+		MingLiu /* 中文是为了兼容opera*/;
+	color: #98d2fd;
+}
+body{
+	background: #0070b9;
+}
+.font-36{
+	font-size: 36px;
+}
+.font-bold{
+	font-weight: bold;
+}
+.gz-btn{
+	background:url("images/star.png") 15% 50% no-repeat #58a2d6;
+	border:1px #66B2FF solid;
+	width:30%;
+	height:40px;
+	cursor: pointer;
+	color: #FFFFFF !important;
+	display: block;
+	line-height: 40px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 16px;
+	border-radius: 0.2em;
+	display: inline-block;
+	padding: 0px 10px;
+	padding-left: 30px;
+	text-decoration: none;
+}
+.gz-btn:HOVER{
+	background-color: #62aaf4;
+	border:1px #62aaf4 solid;
+	text-decoration: none;
+}
+.m-login-btn{
+	padding: 0px 10px;
+	width:30%;
+	background:url("images/mobile.png") 15% 50% no-repeat #5ed495;
+	color: #FFFFFF !important;
+	border: 1px #5ed495 solid;
+	height:40px;
+	cursor: pointer;
+	display: block;
+	line-height: 40px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 16px;
+	border-radius: 0.2em;
+	display: inline-block;
+	margin-left: 10px;
+	padding-left: 20px;
+	text-decoration: none;
+}
+.m-login-btn:HOVER{
+	background-color: #5ccc90;
+	border: 1px #5ccc90 solid;
+	text-decoration: none;
+}
+.index-top{
+	margin-top: 80px;
+}
+.index-text{
+	padding: 10px 0px 0px 0px;
+}
+.m-t-10{
+	margin-top: 20px;
+}
+.m-t-60{
+	margin-top: 60px;
+}
