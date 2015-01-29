@@ -1,6 +1,9 @@
 package com.mglf.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -21,10 +24,14 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.security.web.savedrequest.DefaultSavedRequest;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
+import sun.invoke.empty.Empty;
+
 import com.mglf.dto.LoginUserDetails;
 import com.mglf.entity.User;
 import com.mglf.util.CacheUtil;
 import com.mglf.util.ConfigUtil;
+import com.mglf.util.EmptyUtil;
+import com.mglf.util.SpringSecurityUtils;
 
 
 /**
@@ -35,21 +42,21 @@ import com.mglf.util.ConfigUtil;
 public class AccessFilter extends DelegatingFilterProxy {
 
 	private Class loginUserDetailsCls;
-	
-	
-	public final static String entUrl = ConfigUtil.readSysValue("blueWebUrl") + ConfigUtil.readSysValue("BlueEnterpriseWeb");
-	
-	public final static String perUrl = ConfigUtil.readSysValue("blueWebUrl") + ConfigUtil.readSysValue("BluePersonWeb");
-	
-	
+		
 	public boolean isInit = false;
 	
+	/**
+	 * 专场域名
+	 */
+	public static final List<String> staticFile = new ArrayList<String>(Arrays.asList(
+			".css",".js",
+			".jpg",".jpeg",".png",".gif",".icon",
+			".otf",".eot",".svg",".ttf",".woff"));
 	
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
 			FilterChain filterChain) throws IOException, ServletException {
 		if(!isInit){
-			servletRequest.getServletContext().setAttribute("entUrl", entUrl);
-			servletRequest.getServletContext().setAttribute("perUrl", perUrl);
+			servletRequest.getServletContext().setAttribute("rootUrl", ConfigUtil.readSysValue("rootUrl"));
 			isInit = true;
 		}
 		
@@ -134,10 +141,19 @@ public class AccessFilter extends DelegatingFilterProxy {
 				}
 			}
 		}
-				
+		LoginUserDetails loginUser = SpringSecurityUtils.getLoginUser();
+		if(EmptyUtil.isEmpty(loginUser) && !request.getRequestURI().endsWith("/login")){
+			boolean f = false;
+			for(String filter : staticFile){
+				if(request.getRequestURI().endsWith(filter)){
+					f = true;
+					break;
+				}
+			}
+			if(!f){
+				response.sendRedirect(ConfigUtil.readSysValue("rootUrl")+"/login");
+			}
+		}
 		super.doFilter(servletRequest, servletResponse, filterChain);
 	}
-
-	
-
 }
