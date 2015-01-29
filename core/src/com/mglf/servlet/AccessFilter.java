@@ -101,13 +101,7 @@ public class AccessFilter extends DelegatingFilterProxy {
 						}catch(Exception e){
 						}
 					}
-					if(loginUserDetailsCls == null){
-						try{
-							loginUserDetailsCls = Class.forName("com.mglf.ent.dto.user.EntUserDetails");
-						}catch(Exception e){
-						}	
-					}
-					
+										
 					try{
 						userDetials = (LoginUserDetails)loginUserDetailsCls.getDeclaredConstructor(User.class).newInstance(user);
 					}catch(Exception e){
