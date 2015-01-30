@@ -24,9 +24,14 @@ public class IndexController {
 	}
 	
 	@RequestMapping("/")
-	public ModelAndView initSearch(String address) throws Exception {
+	public ModelAndView idx(String address) throws Exception {
 		ModelMap map = new ModelMap();
 		
-		return new ModelAndView("mobile/index.jsp", map);
+		return new ModelAndView("web/index.jsp", map);
+	}
+	
+	@RequestMapping("/index")
+	public ModelAndView index(String address) throws Exception {		
+		return new ModelAndView("redirect:/");
 	}
 }

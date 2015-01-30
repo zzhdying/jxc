@@ -20,10 +20,5 @@ public class PerUserController {
 	@Autowired
 	public WPerUserService wPerUserService;
 	
-	@RequestMapping("/index")
-	public ModelAndView initSearch(String address) throws Exception {
-		ModelMap map = new ModelMap();
-		
-		return new ModelAndView("mobile/index.jsp", map);
-	}
+	
 }
