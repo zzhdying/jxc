@@ -11,6 +11,8 @@ public class PrdType  extends BaseEntity{
 
     private String num;
 
+    private String entid;
+    
     private String name;
 
     private String pararentid;
@@ -25,7 +27,7 @@ public class PrdType  extends BaseEntity{
 
     private String updateUser;
 
-    private String desc;
+    private String description;
 
     public String getId() {
         return id;
@@ -100,10 +102,20 @@ public class PrdType  extends BaseEntity{
     }
 
     public String getDesc() {
-        return desc;
+        return description;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+        this.description = desc == null ? null : desc.trim();
     }
+
+	public String getEntid() {
+		return entid;
+	}
+
+	public void setEntid(String entid) {
+		this.entid = entid;
+	}
+    
+    
 }

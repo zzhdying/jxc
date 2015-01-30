@@ -3,17 +3,13 @@ package com.mglf.dao;
 import com.mglf.entity.PrdType;
 
 public interface PrdTypeMapper {
-    int deleteByPrimaryKey(String id);
+	public int deleteByPrimaryKey(String id);
 
-    int insert(PrdType record);
+	public int insert(PrdType record);
 
-    int insertSelective(PrdType record);
+	public PrdType selectByPrimaryKey(String id);
 
-    PrdType selectByPrimaryKey(String id);
+	public int updateByPrimaryKeySelective(PrdType record);
 
-    int updateByPrimaryKeySelective(PrdType record);
-
-    int updateByPrimaryKeyWithBLOBs(PrdType record);
-
-    int updateByPrimaryKey(PrdType record);
+	public int updateByPrimaryKey(PrdType record);
 }

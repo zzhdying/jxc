@@ -151,7 +151,8 @@ public class AccessFilter extends DelegatingFilterProxy {
 				}
 			}
 			if(!f){
-				response.sendRedirect(ConfigUtil.readSysValue("rootUrl")+"/login");
+				//response.sendRedirect(ConfigUtil.readSysValue("rootUrl")+"/login");
+				//return ;
 			}
 		}
 		super.doFilter(servletRequest, servletResponse, filterChain);
