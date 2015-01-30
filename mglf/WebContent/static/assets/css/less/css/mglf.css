@@ -1,0 +1,8 @@
+.mglf-header {
+  position: fixed;
+  width: 100%;
+}
+.mglf-content {
+  position: relative;
+  top: 45px;
+}
