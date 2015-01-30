@@ -9,7 +9,6 @@
 <body>
 	<%-- 引入头部 --%>		
 	<%@ include file="../comm/headmenu.jsp" %>
-	
 	<div class="main-container mglf-content" id="main-container">
 		<div class="main-container-inner">
 			<a class="menu-toggler" id="menu-toggler" href="#">
