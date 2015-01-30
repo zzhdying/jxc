@@ -18,7 +18,7 @@
 								<h1>
 									<i class="icon-leaf green"></i>
 									<span class="red">Mglf</span>
-									<span class="white">进销存管理 平台</span>
+									<span class="dark">进销存管理 平台</span>
 								</h1>
 								<h4 class="blue">&copy; Company Name</h4>
 							</div>
@@ -29,7 +29,7 @@
 								<div id="login-box" class="login-box visible widget-box no-border">
 									<div class="widget-body">
 										<div class="widget-main">
-											<h4 class="header blue lighter bigger">
+											<h4 class="header dark lighter bigger">
 												<i class="icon-coffee green"></i>
 												一个帐号，玩转所有服务！
 											</h4>
@@ -60,7 +60,7 @@
 															<span class="lbl"> 自动登录</span>
 														</label>
 
-														<button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+														<button type="button" class="width-35 pull-right btn btn-sm">
 															<i class="icon-key"></i>
 															登录
 														</button>

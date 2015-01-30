@@ -12,7 +12,13 @@
 <!-- 字体 -->
 <link rel="stylesheet" href="${root }/static/assets/css/ace-fonts.css" />
 <!-- ace styles -->
-<link rel="stylesheet" href="${root }/static/assets/css/ace.min.css" />
-<link rel="stylesheet" href="${root }/static/assets/css/ace-rtl.min.css" />
+<link rel="stylesheet" href="${root }/static/assets/css/less/css/ace.css" />
+<link rel="stylesheet" href="${root }/static/assets/css/less/css/ace-rtl.css" />
+<link rel="stylesheet" href="${root }/static/assets/css/ace-skins.min.css" />
+
+
+<link rel="stylesheet" href="${root }/static/assets/css/less/css/mglf.css" />
+<!-- ace settings handler -->
+<script src="${root }/static/assets/js/ace-extra.min.js"></script>
 
 
