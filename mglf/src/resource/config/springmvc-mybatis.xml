@@ -19,9 +19,9 @@
 			http://www.springframework.org/schema/cache
 			http://www.springframework.org/schema/cache/spring-cache-3.2.xsd">
     
-    <bean id="perUserMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <bean id="sessionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-		<property name="mapperInterface" value="com.mglf.biz.dao.PerUserMapper" />
+		<property name="mapperInterface" value="com.mglf.biz.dao.comm.SessionMapper" />
 	</bean>
     
 </beans>

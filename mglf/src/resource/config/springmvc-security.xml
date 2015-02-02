@@ -30,7 +30,20 @@
 <sec:http pattern="/newstatic/**" security="none"/>
 <sec:http pattern="/static/**" security="none"/>
 <sec:http pattern="/webstatic/**" security="none"/> 
-
-
+<sec:http auto-config="false" entry-point-ref="authenticationEntryPoint" use-expressions="true"  access-decision-manager-ref="sessionAccessDecisionManager"  access-denied-page="/accessdenied" >
+<sec:intercept-url pattern="/login/*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+<sec:intercept-url pattern="/**" access="ROLE" />
+<sec:logout delete-cookies="SPRING_SECURITY_REMEMBER_ME_COOKIE" logout-success-url="/login"  />
+</sec:http> <sec:authentication-manager alias="authenticationManager">
+  <sec:authentication-provider  user-service-ref="sessionService">
+  	<sec:password-encoder hash="md5">
+		<sec:salt-source user-property="salt"/>  
+  	</sec:password-encoder>   
+  </sec:authentication-provider>   
+</sec:authentication-manager>
+<bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">  
+    <property name="loginFormUrl" value="/login" />   
+</bean>
 </beans> 	
+
 		

@@ -117,7 +117,8 @@
 		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
 		<property name="mapperLocations">
 		    <list>
-		        <value>classpath:com/mglf/biz/dao/mapper/*Mapper.xml</value>
+		        <value>classpath:com/mglf/biz/dao/**/*Mapper.xml</value>
+		        <value>classpath:com/mglf/dao/mapper/*Mapper.xml</value>
 			</list>        
 		</property>
 	</bean>

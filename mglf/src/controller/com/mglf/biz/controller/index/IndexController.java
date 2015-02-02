@@ -11,22 +11,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mglf.biz.service.web.WPerUserService;
+import com.mglf.dto.LoginUserDetails;
 import com.mglf.mvc.NonHtmlEscape;
+import com.mglf.util.SpringSecurityUtils;
 
 @Controller
 @RequestMapping("/")
 public class IndexController {
 	
-	@RequestMapping("/login")
-	public ModelAndView login(){
-		ModelMap map = new ModelMap();
-		return new ModelAndView("web/login.jsp", map);
-	}
-	
 	@RequestMapping("/")
 	public ModelAndView idx(String address) throws Exception {
 		ModelMap map = new ModelMap();
-		
+		LoginUserDetails loginUser = SpringSecurityUtils.getLoginUser();
 		return new ModelAndView("web/index.jsp", map);
 	}
 	

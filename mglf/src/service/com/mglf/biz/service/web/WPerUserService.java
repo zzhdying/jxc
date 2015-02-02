@@ -10,8 +10,6 @@ import com.mglf.biz.dao.PerUserMapper;
 @Transactional
 public class WPerUserService {
 	
-	@Autowired
-	private PerUserMapper perUserMapper;
 	
 	
 }
