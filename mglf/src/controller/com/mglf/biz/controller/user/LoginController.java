@@ -28,6 +28,10 @@ public class LoginController {
 
 	@RequestMapping("/")
 	public ModelAndView login(){
+		return new ModelAndView("redirect:/login/index");
+	}
+	@RequestMapping("/index")
+	public ModelAndView loginindex(){
 		ModelMap map = new ModelMap();
 		return new ModelAndView("web/login.jsp", map);
 	}
@@ -41,5 +45,11 @@ public class LoginController {
 			return new ModelAndView("web/login.jsp",map);
 		}
 		return new ModelAndView("redirect:/",map);
-	}	
+	}
+	
+	@RequestMapping("out")
+	public ModelAndView dologout(){
+		SpringSecurityUtils.clearUserDetailsToContext();
+		return new ModelAndView("redirect:/login/index");
+	}
 }
