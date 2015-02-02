@@ -35,6 +35,8 @@ public abstract class LoginUserDetails implements UserDetails {
 	public abstract String getUsername();
 
 	public abstract String getPassword();
+	
+	public abstract String getEntid();
 
 	public boolean isAccountNonExpired() {
 		return true;

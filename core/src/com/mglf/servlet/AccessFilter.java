@@ -31,6 +31,7 @@ import com.mglf.dto.UserDetails;
 import com.mglf.entity.User;
 import com.mglf.util.CacheUtil;
 import com.mglf.util.ConfigUtil;
+import com.mglf.util.CookieUtil;
 import com.mglf.util.EmptyUtil;
 import com.mglf.util.SpringSecurityUtils;
 
@@ -90,21 +91,10 @@ public class AccessFilter extends DelegatingFilterProxy {
 			}
 		}
 		
-		if(userDetials == null && !request.getRequestURI().endsWith("/login") ){
-			Cookie[] cs = request.getCookies();
-			String authKey = null;
-			String defaultPage = null;
-			
-			if(cs != null){			
-				for(Cookie c : cs){
-					if("auth".equals(c.getName())){
-						authKey = c.getValue();
-					}else if("defaultPage".equals(c.getName())){
-						defaultPage = c.getValue();
-					}
-				}
-			}	
-			
+		String authKey = CookieUtil.readCookie(request, "auth");
+		String defaultPage = CookieUtil.readCookie(request, "defaultPage");
+		
+		if(userDetials == null && !request.getRequestURI().endsWith("/login") ){		
 			if(authKey != null && !"".equals(authKey)){
 				User user = (User)CacheUtil.load(CacheUtil.GROUP_AUTH, authKey);
 				if(user != null){
@@ -156,8 +146,19 @@ public class AccessFilter extends DelegatingFilterProxy {
 				}
 			}
 			if(!f){
-				response.sendRedirect(ConfigUtil.readSysValue("rootUrl")+"/login/");
-				return ;
+				//response.sendRedirect(ConfigUtil.readSysValue("rootUrl")+"/login/index");
+				//return ;
+			}
+		}
+		if(!EmptyUtil.isEmpty(userDetials)){
+			if(defaultPage != null && !"".equals(defaultPage) && !request.getRequestURI().equals(defaultPage)){
+				
+				Cookie cookie = new Cookie("defaultPage", "");
+				cookie.setPath("/");
+				response.addCookie(cookie);
+				
+				response.sendRedirect(defaultPage);
+				return;
 			}
 		}
 		super.doFilter(servletRequest, servletResponse, filterChain);

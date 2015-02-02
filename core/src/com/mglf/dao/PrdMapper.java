@@ -1,19 +1,21 @@
 package com.mglf.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.mglf.entity.Prd;
 
 public interface PrdMapper {
-    int deleteByPrimaryKey(String id);
+	
+    public int deleteByPrimaryKey(String id);
 
-    int insert(Prd record);
+    public int insert(Prd record);
 
-    int insertSelective(Prd record);
+    public List<Prd> selectPrdBy(Map<String,Object> map);
 
-    Prd selectByPrimaryKey(String id);
+    public int updateByPrimaryKeySelective(Prd record);
 
-    int updateByPrimaryKeySelective(Prd record);
-
-    int updateByPrimaryKeyWithBLOBs(Prd record);
-
-    int updateByPrimaryKey(Prd record);
+    public int updateByPrimaryKey(Prd record);
+    
+    public Prd selectMaxNum(String entid);
 }

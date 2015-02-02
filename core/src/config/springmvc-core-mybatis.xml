@@ -30,6 +30,9 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 		<property name="mapperInterface" value="com.mglf.dao.UserMapper" />
 	</bean>
-	
+	<bean id="prdMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="mapperInterface" value="com.mglf.dao.PrdMapper" />
+	</bean>
 	
 </beans>

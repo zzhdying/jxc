@@ -91,6 +91,14 @@ public class UserDetails  extends LoginUserDetails  {
 		
 	}
 	
+	public String getEntid(){
+		if (user!=null) {
+			return user.getEntid();
+		}else{
+			return null;
+		}
+	}
+	
 	public boolean isActive(){
 		return true;
 	}
@@ -100,4 +108,5 @@ public class UserDetails  extends LoginUserDetails  {
 		return user.getId() + ConfigUtil.readSysValue("pwdRandom");
 	}
 	
+
 }

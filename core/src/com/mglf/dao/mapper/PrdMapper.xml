@@ -1,146 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mglf.dao.PrdMapper" >
-  <resultMap id="BaseResultMap" type="com.mglf.entity.Prd" >
+  <resultMap id="PrdResultMap" type="com.mglf.entity.Prd" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="num" property="num" jdbcType="VARCHAR" />
     <result column="entid" property="entid" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="unit" property="unit" jdbcType="VARCHAR" />
     <result column="prd_type_id" property="prdTypeId" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
     <result column="code" property="code" jdbcType="VARCHAR" />
-    <result column="buy_price" property="buyPrice" jdbcType="DECIMAL" />
-    <result column="sell_price" property="sellPrice" jdbcType="DECIMAL" />
+    <result column="own_entname" property="ownEntname" jdbcType="VARCHAR" />
+    <result column="buy_price" property="buyPrice" jdbcType="DOUBLE" />
+    <result column="sell_price" property="sellPrice" jdbcType="DOUBLE" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.mglf.entity.Prd" extends="BaseResultMap" >
-    <result column="description" property="description" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, num, entid, name, unit, prd_type_id, code, buy_price, sell_price, create_time, 
-    update_time, create_user, update_user
-  </sql>
-  <sql id="Blob_Column_List" >
-    description
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
+  <select id="selectPrdBy" resultMap="PrdResultMap" parameterType="map" >
+    select * 
     from t_prd
-    where id = #{id,jdbcType=VARCHAR}
+    where 1=1 and entid = #{entid} 
+    <if test="id!=null and id!=''">
+        and id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="num!=null and num!=''">
+        and num = #{num,jdbcType=VARCHAR}
+    </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_prd
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.mglf.entity.Prd" >
-    insert into t_prd (id, num, entid, 
+    insert into t_prd (id, num, entid, own_entname,
       name, unit, prd_type_id, 
       code, buy_price, sell_price, 
       create_time, update_time, create_user, 
       update_user, description)
-    values (#{id,jdbcType=VARCHAR}, #{num,jdbcType=VARCHAR}, #{entid,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{num,jdbcType=VARCHAR}, #{entid,jdbcType=VARCHAR}, #{ownEntname,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{prdTypeId,jdbcType=VARCHAR}, 
-      #{code,jdbcType=VARCHAR}, #{buyPrice,jdbcType=DECIMAL}, #{sellPrice,jdbcType=DECIMAL}, 
+      #{code,jdbcType=VARCHAR}, #{buyPrice,jdbcType=DOUBLE}, #{sellPrice,jdbcType=DOUBLE}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
       #{updateUser,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.mglf.entity.Prd" >
-    insert into t_prd
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="num != null" >
-        num,
-      </if>
-      <if test="entid != null" >
-        entid,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="unit != null" >
-        unit,
-      </if>
-      <if test="prdTypeId != null" >
-        prd_type_id,
-      </if>
-      <if test="code != null" >
-        code,
-      </if>
-      <if test="buyPrice != null" >
-        buy_price,
-      </if>
-      <if test="sellPrice != null" >
-        sell_price,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="createUser != null" >
-        create_user,
-      </if>
-      <if test="updateUser != null" >
-        update_user,
-      </if>
-      <if test="description != null" >
-        description,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="num != null" >
-        #{num,jdbcType=VARCHAR},
-      </if>
-      <if test="entid != null" >
-        #{entid,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="unit != null" >
-        #{unit,jdbcType=VARCHAR},
-      </if>
-      <if test="prdTypeId != null" >
-        #{prdTypeId,jdbcType=VARCHAR},
-      </if>
-      <if test="code != null" >
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="buyPrice != null" >
-        #{buyPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="sellPrice != null" >
-        #{sellPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createUser != null" >
-        #{createUser,jdbcType=VARCHAR},
-      </if>
-      <if test="updateUser != null" >
-        #{updateUser,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
+  
   <update id="updateByPrimaryKeySelective" parameterType="com.mglf.entity.Prd" >
     update t_prd
     <set >
@@ -156,6 +61,9 @@
       <if test="unit != null" >
         unit = #{unit,jdbcType=VARCHAR},
       </if>
+      <if test="ownEntname != null" >
+        own_entname = #{ownEntname,jdbcType=VARCHAR},
+      </if>
       <if test="prdTypeId != null" >
         prd_type_id = #{prdTypeId,jdbcType=VARCHAR},
       </if>
@@ -163,10 +71,10 @@
         code = #{code,jdbcType=VARCHAR},
       </if>
       <if test="buyPrice != null" >
-        buy_price = #{buyPrice,jdbcType=DECIMAL},
+        buy_price = #{buyPrice,jdbcType=DOUBLE},
       </if>
       <if test="sellPrice != null" >
-        sell_price = #{sellPrice,jdbcType=DECIMAL},
+        sell_price = #{sellPrice,jdbcType=DOUBLE},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -186,16 +94,17 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mglf.entity.Prd" >
+  <update id="updateByPrimaryKey" parameterType="com.mglf.entity.Prd" >
     update t_prd
     set num = #{num,jdbcType=VARCHAR},
       entid = #{entid,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       unit = #{unit,jdbcType=VARCHAR},
+      own_entname = #{ownEntname,jdbcType=VARCHAR},
       prd_type_id = #{prdTypeId,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},
-      buy_price = #{buyPrice,jdbcType=DECIMAL},
-      sell_price = #{sellPrice,jdbcType=DECIMAL},
+      buy_price = #{buyPrice,jdbcType=DOUBLE},
+      sell_price = #{sellPrice,jdbcType=DOUBLE},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},
@@ -203,20 +112,12 @@
       description = #{description,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mglf.entity.Prd" >
-    update t_prd
-    set num = #{num,jdbcType=VARCHAR},
-      entid = #{entid,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      unit = #{unit,jdbcType=VARCHAR},
-      prd_type_id = #{prdTypeId,jdbcType=VARCHAR},
-      code = #{code,jdbcType=VARCHAR},
-      buy_price = #{buyPrice,jdbcType=DECIMAL},
-      sell_price = #{sellPrice,jdbcType=DECIMAL},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      create_user = #{createUser,jdbcType=VARCHAR},
-      update_user = #{updateUser,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+  
+  <select id="selectMaxNum" parameterType="String" resultMap="PrdResultMap">
+      SELECT * FROM t_prd WHERE entid=#{entid,jdbcType=VARCHAR} ORDER BY num DESC LIMIT 0,1
+  </select>
+  
+  
+  
+  
 </mapper>

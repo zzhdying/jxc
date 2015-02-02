@@ -1,5 +1,6 @@
 package com.mglf.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.mglf.base.BaseEntity;
@@ -19,9 +20,9 @@ public class Prd   extends BaseEntity{
 
     private String code;
 
-    private Long buyPrice;
+    private Double buyPrice;
 
-    private Long sellPrice;
+    private Double sellPrice;
 
     private Date createTime;
 
@@ -32,6 +33,8 @@ public class Prd   extends BaseEntity{
     private String updateUser;
 
     private String description;
+    
+    private String ownEntname;
 
     public String getId() {
         return id;
@@ -89,19 +92,19 @@ public class Prd   extends BaseEntity{
         this.code = code == null ? null : code.trim();
     }
 
-    public Long getBuyPrice() {
+    public Double getBuyPrice() {
         return buyPrice;
     }
 
-    public void setBuyPrice(Long buyPrice) {
+    public void setBuyPrice(Double buyPrice) {
         this.buyPrice = buyPrice;
     }
 
-    public Long getSellPrice() {
+    public Double getSellPrice() {
         return sellPrice;
     }
 
-    public void setSellPrice(Long sellPrice) {
+    public void setSellPrice(Double sellPrice) {
         this.sellPrice = sellPrice;
     }
 
@@ -144,4 +147,14 @@ public class Prd   extends BaseEntity{
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
     }
+
+	public String getOwnEntname() {
+		return ownEntname;
+	}
+
+	public void setOwnEntname(String ownEntname) {
+		this.ownEntname = ownEntname;
+	}
+    
+    
 }
