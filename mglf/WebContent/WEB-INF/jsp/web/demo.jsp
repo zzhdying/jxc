@@ -22,7 +22,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home home-icon"></i>
-							<a href="#">Home</a>
+							<a href="${root }">首页</a>
 						</li>
 						<li class="active">Dashboard</li>
 					</ul>					
