@@ -27,6 +27,7 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 import sun.invoke.empty.Empty;
 
 import com.mglf.dto.LoginUserDetails;
+import com.mglf.dto.UserDetails;
 import com.mglf.entity.User;
 import com.mglf.util.CacheUtil;
 import com.mglf.util.ConfigUtil;
@@ -52,6 +53,11 @@ public class AccessFilter extends DelegatingFilterProxy {
 			".css",".js",
 			".jpg",".jpeg",".png",".gif",".icon",
 			".otf",".eot",".svg",".ttf",".woff"));
+	/**
+	 * 专场域名
+	 */
+	public static final List<String> urlFilter = new ArrayList<String>(Arrays.asList(
+			"/login"));
 	
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
 			FilterChain filterChain) throws IOException, ServletException {
@@ -104,7 +110,7 @@ public class AccessFilter extends DelegatingFilterProxy {
 				if(user != null){
 					if(loginUserDetailsCls == null){
 						try{
-							loginUserDetailsCls = Class.forName("com.mglf.per.dto.PerUserDetails");
+							loginUserDetailsCls = Class.forName("com.mglf.dto.UserDetails");
 						}catch(Exception e){
 						}
 					}
@@ -141,8 +147,7 @@ public class AccessFilter extends DelegatingFilterProxy {
 				}
 			}
 		}
-		LoginUserDetails loginUser = SpringSecurityUtils.getLoginUser();
-		if(EmptyUtil.isEmpty(loginUser) && !request.getRequestURI().endsWith("/login")){
+		if(EmptyUtil.isEmpty(userDetials) && !isUrlContain(request.getRequestURI(),urlFilter)){
 			boolean f = false;
 			for(String filter : staticFile){
 				if(request.getRequestURI().endsWith(filter)){
@@ -151,10 +156,19 @@ public class AccessFilter extends DelegatingFilterProxy {
 				}
 			}
 			if(!f){
-				//response.sendRedirect(ConfigUtil.readSysValue("rootUrl")+"/login");
-				//return ;
+				response.sendRedirect(ConfigUtil.readSysValue("rootUrl")+"/login/");
+				return ;
 			}
 		}
 		super.doFilter(servletRequest, servletResponse, filterChain);
+	}
+	
+	private static boolean isUrlContain(String main , List<String> value){
+		for(String filter : value){
+			if(main.indexOf(filter)>=0){
+				return true;
+			}
+		}
+		return false;
 	}
 }
