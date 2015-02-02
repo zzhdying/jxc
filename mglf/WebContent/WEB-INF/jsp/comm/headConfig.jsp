@@ -16,6 +16,13 @@
 <link rel="stylesheet" href="${root }/static/assets/css/less/css/ace-rtl.css" />
 <link rel="stylesheet" href="${root }/static/assets/css/ace-skins.min.css" />
 
+<!-- FORM -->
+<link rel="stylesheet" href="${root }/static/assets/css/jquery-ui-1.10.3.custom.min.css" />
+<link rel="stylesheet" href="${root }/static/assets/css/chosen.css" />
+<link rel="stylesheet" href="${root }/static/assets/css/datepicker.css" />
+<link rel="stylesheet" href="${root }/static/assets/css/bootstrap-timepicker.css" />
+<link rel="stylesheet" href="${root }/static/assets/css/daterangepicker.css" />
+<link rel="stylesheet" href="${root }/static/assets/css/colorpicker.css" />
 
 <link rel="stylesheet" href="${root }/static/assets/css/less/css/mglf.css" />
 <!-- ace settings handler -->

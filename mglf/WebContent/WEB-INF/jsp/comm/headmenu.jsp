@@ -254,9 +254,9 @@
 						<li class="divider"></li>
 
 						<li>
-							<a href="#">
+							<a href="${root }/login/out">
 								<i class="icon-off"></i>
-								Logout
+								登出
 							</a>
 						</li>
 					</ul>
