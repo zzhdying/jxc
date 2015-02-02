@@ -36,18 +36,18 @@
 
 											<div class="space-6"></div>
 
-											<form>
+											<form action="${root }/login/do">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="用户名" />
+															<input type="text" name="username" class="form-control" placeholder="用户名" />
 															<i class="icon-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" />
+															<input type="password" name="pass" class="form-control" placeholder="密码" />
 															<i class="icon-lock"></i>
 														</span>
 													</label>
@@ -60,7 +60,7 @@
 															<span class="lbl"> 自动登录</span>
 														</label>
 
-														<button type="button" class="width-35 pull-right btn btn-sm">
+														<button type="submit" class="width-35 pull-right btn btn-sm">
 															<i class="icon-key"></i>
 															登录
 														</button>

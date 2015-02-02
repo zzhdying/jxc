@@ -9,6 +9,7 @@
 <body>
 	<%-- 引入头部 --%>		
 	<%@ include file="../comm/headmenu.jsp" %>
+	
 	<div class="main-container mglf-content" id="main-container">
 		<div class="main-container-inner">
 			<a class="menu-toggler" id="menu-toggler" href="#">
@@ -21,17 +22,18 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home home-icon"></i>
-							<a href="${root }">首页</a>
+							<a href="#">首页</a>
 						</li>
+						<li class="active">产品中心</li>
 					</ul>					
 				</div>
 				<div class="page-content">
 					<div class="page-header">
 						<h1>
-							Dashboard
+							产品中心
 							<small>
 								<i class="icon-double-angle-right"></i>
-								overview &amp; stats
+								产品列表
 							</small>
 						</h1>
 					</div>

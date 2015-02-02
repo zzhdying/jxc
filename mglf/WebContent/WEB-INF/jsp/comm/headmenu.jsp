@@ -230,7 +230,7 @@
 						<img class="nav-user-photo" src="${root}/static/assets/avatars/user.jpg" alt="Jason's Photo" />
 						<span class="user-info">
 							<small>Welcome,</small>
-							Jason
+							${userinfo.username }
 						</span>
 
 						<i class="icon-caret-down"></i>
