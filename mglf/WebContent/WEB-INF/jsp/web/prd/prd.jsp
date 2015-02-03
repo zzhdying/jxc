@@ -24,16 +24,16 @@
 							<i class="icon-home home-icon"></i>
 							<a href="#">首页</a>
 						</li>
-						<li class="active">产品中心</li>
+						<li class="active">商品中心</li>
 					</ul>					
 				</div>
 				<div class="page-content">
 					<div class="page-header">
 						<h1>
-							产品中心
+							商品中心
 							<small>
 								<i class="icon-double-angle-right"></i>
-								产品列表
+								商品列表
 							</small>
 						</h1>
 					</div>
@@ -70,47 +70,16 @@
 												<td>${item.description }</td>
 												<td align="center">
 													<div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-														
-														<button class="btn btn-xs btn-info">
+														<button class="btn btn-xs btn-info edit-btn" data-key="${item.id }">
 															<i class="icon-edit bigger-120"></i>
 														</button>
-	
-														<button class="btn btn-xs btn-danger">
+														<button class="btn btn-xs btn-danger del-btn" data-key="${item.id }" data-val01="${item.name }">
 															<i class="icon-trash bigger-120"></i>
 														</button>
-	
 													</div>
 												</td>
 											</tr>
 										</c:forEach>
-										<!-- <tr>
-											<td>
-												<a href="#">ace.com</a>
-											</td>
-											<td>$45</td>
-											<td class="hidden-480">3,330</td>
-											<td>Feb 12</td>
-
-											<td class="hidden-480">
-												<span class="label label-sm label-warning">Expiring</span>
-											</td>
-
-											<td>
-												<div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-													
-													<button class="btn btn-xs btn-info">
-														<i class="icon-edit bigger-120"></i>
-													</button>
-
-													<button class="btn btn-xs btn-danger">
-														<i class="icon-trash bigger-120"></i>
-													</button>
-
-												</div>
-
-												
-											</td>
-										</tr> -->
 									</tbody>
 								</table>
 							</div><!-- /.table-responsive -->
@@ -121,14 +90,72 @@
 			<%@ include file="../../comm/rightfloatmenu.jsp" %>
 		</div>
 	</div>
-
+	
+	<div id="dialog-confirm" class="hide">
+		<div class="alert alert-info bigger-110">
+			<div class="content-msg"></div>
+			删除商品后将不可再找到该商品。
+		</div>
+		<div class="space-6"></div>
+		<p class="bigger-110 bolder center grey">
+			<i class="icon-hand-right blue bigger-120"></i>
+			确定要删除吗?
+		</p>
+	</div>
+	
 	<!-- 底部 -->
 	<%@ include file="../../comm/footer.jsp" %>
 
 		<script type="text/javascript">
 			jQuery(function($) {
 				
-			
+				$(".edit-btn").click(function(){
+					location.href = "${root}/prd/edit/"+$(this).attr("data-key");
+				});
+				
+				$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+					_title: function(title) {
+						var $title = this.options.title || '&nbsp;'
+						if( ("title_html" in this.options) && this.options.title_html == true )
+							title.html($title);
+						else title.text($title);
+					}
+				}));
+				$(".del-btn").click(function(){
+					var $this = $(this);
+					var id = $(this).attr("data-key");
+					var name = $(this).attr("data-val01");
+					$("#dialog-confirm .content-msg").html("商品名： " + name);
+					$( "#dialog-confirm" ).removeClass('hide').dialog({
+						resizable: false,
+						modal: true,
+						title: "<div class='widget-header'><h4 class='smaller'><i class='icon-warning-sign red'></i> 删除商品确认</h4></div>",
+						title_html: true,
+						buttons: [
+							{
+								html: "<i class='icon-trash bigger-110'></i>&nbsp; 确定删除",
+								"class" : "btn btn-danger btn-xs",
+								click: function() {
+									$.ajax({
+										url:"${root}/prd/del",
+										data:{'id':id},
+										type:'post'
+									});
+									$this.closest("tr").remove();
+									$( this ).dialog( "close" );
+								}
+							}
+							,
+							{
+								html: "<i class='icon-remove bigger-110'></i>&nbsp; Cancel",
+								"class" : "btn btn-xs",
+								click: function() {
+									$( this ).dialog( "close" );
+								}
+							}
+						]
+					});
+				});				
 			})
 		</script>
 	</body>

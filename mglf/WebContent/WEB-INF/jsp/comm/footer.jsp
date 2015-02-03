@@ -33,6 +33,10 @@
 <script src="${root }/static/assets/js/flot/jquery.flot.min.js"></script>
 <script src="${root }/static/assets/js/flot/jquery.flot.pie.min.js"></script>
 <script src="${root }/static/assets/js/flot/jquery.flot.resize.min.js"></script>
+
+<script src="${root }/static/assets/js/jquery.validate.min.js"></script>
+<script src="${root }/static/assets/js/jquery-ui-1.10.3.full.min.js"></script>
+
 <!-- ace scripts -->
 <script src="${root }/static/assets/js/ace-elements.min.js"></script>
 <script src="${root }/static/assets/js/ace.min.js"></script>

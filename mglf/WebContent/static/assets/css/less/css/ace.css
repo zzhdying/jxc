@@ -4916,12 +4916,12 @@ input[type="url"],
 input[type="search"],
 input[type="tel"],
 input[type="color"] {
-  border-radius: 0 !important;
+  border-radius: 4px !important;
   color: #858585;
   background-color: #ffffff;
   border: 1px solid #d5d5d5;
-  padding: 5px 4px;
-  line-height: 1.2;
+  padding: 8px 8px 6px;
+  line-height: 14px;
   font-size: 14px;
   font-family: inherit;
   -webkit-box-shadow: none !important;
@@ -10444,10 +10444,11 @@ ul.attachment-list > li {
 }
 .chosen-container > .chosen-single,
 [class*="chosen-container"] > .chosen-single {
-  line-height: 28px;
-  height: 30px;
+  line-height: 34px;
+  height: 36px;
   box-shadow: none;
   background: #FAFAFA;
+  border-radius: 4px !important;
 }
 .chosen-choices {
   box-shadow: none !important;
@@ -13997,7 +13998,8 @@ th[aria-selected=true] .ui-jqgrid-sortable {
 }
 .tags {
   display: inline-block;
-  padding: 4px 6px;
+  border-radius: 4px;
+  padding: 8px 8px 6px;
   color: #777777;
   vertical-align: middle;
   background-color: #FFF;
