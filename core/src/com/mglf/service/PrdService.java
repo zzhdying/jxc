@@ -60,6 +60,28 @@ public class PrdService {
 	}
 	
 	/**
+	 * 
+	 * @author zhongzhuohan
+	 * @param prd
+	 */
+	@Transactional(readOnly=false)
+	public void update(Prd prd){
+		prd.setUpdateTime(new Date());
+		prd.setUpdateUser(SpringSecurityUtils.getLoginUser().getUserId());
+		prdMapper.updateByPrimaryKeySelective(prd);
+	}
+	
+	/**
+	 * 删除商品
+	 * @author zhongzhuohan
+	 * @param id
+	 */
+	@Transactional(readOnly=false)
+	public void removePrd(String id){
+		prdMapper.deleteByPrimaryKey(id);
+	}
+	
+	/**
 	 * 取企业下所有的产品
 	 * @author zhongzhuohan
 	 * @param entid
