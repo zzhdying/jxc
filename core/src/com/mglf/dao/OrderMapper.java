@@ -1,17 +1,19 @@
 package com.mglf.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.mglf.entity.Order;
 
 public interface OrderMapper {
-    int deleteByPrimaryKey(String id);
+	
+    public int deleteByPrimaryKey(String id);
 
-    int insert(Order record);
+    public int insert(Order record);
 
-    int insertSelective(Order record);
+    public List<Order> selectBy(Map<String,Object> map);
 
-    Order selectByPrimaryKey(String id);
+    public int updateByPrimaryKeySelective(Order record);
 
-    int updateByPrimaryKeySelective(Order record);
-
-    int updateByPrimaryKey(Order record);
+    public int updateByPrimaryKey(Order record);
 }

@@ -42,4 +42,8 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 		<property name="mapperInterface" value="com.mglf.dao.SupplierMapper" />
 	</bean>
+	<bean id="orderMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="mapperInterface" value="com.mglf.dao.OrderMapper" />
+	</bean>
 </beans>

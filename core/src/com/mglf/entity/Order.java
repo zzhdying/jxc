@@ -5,9 +5,16 @@ import java.util.Date;
 import com.mglf.base.BaseEntity;
 
 public class Order  extends BaseEntity {
-    private String id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String id;
 
     private String num;
+    
+    private String entid;
 
     private String supplierId;
 
@@ -84,4 +91,13 @@ public class Order  extends BaseEntity {
     public void setUpdateUser(String updateUser) {
         this.updateUser = updateUser == null ? null : updateUser.trim();
     }
+
+	public String getEntid() {
+		return entid;
+	}
+
+	public void setEntid(String entid) {
+		this.entid = entid;
+	}
+    
 }
