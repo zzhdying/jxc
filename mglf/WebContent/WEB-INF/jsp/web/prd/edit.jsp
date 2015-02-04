@@ -185,17 +185,17 @@ float: left;
 				$("#form-unit").tag({
 					placeholder:$("#form-unit").attr('placeholder'),
 					tabindex:$("#form-unit").attr('tabindex'),
-					source: ["包01","台","瓶"]
+					source: baseUnit
 				});
 				$("#ownEntname").tag({
 					placeholder:$("#ownEntname").attr('placeholder'),
 					tabindex:$("#ownEntname").attr('tabindex'),
-					source: ["001 恒安集团","002 钟氏集团"]
+					source: baseOwnent
 				});
 				$("#form-prdtype").tag({
 					placeholder:$("#form-prdtype").attr('placeholder'),
 					tabindex:$("#form-prdtype").attr('tabindex'),
-					source: ["001 抽纸","002 卫生巾"]
+					source: basePrdtype
 				});
 				$(".chosen-select").chosen(); 
 				
