@@ -59,8 +59,8 @@
 			</a>
 
 			<ul class="submenu">
-				<li>
-					<a href="elements.html">
+				<li class="<c:if test="${curmenu=='unit'}">active</c:if>">
+					<a href="${root }/unit/index">
 						<i class="icon-double-angle-right"></i>
 						商品单位
 					</a>
