@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../../comm/taglibs.jsp" %>
 <%@ include file="../../comm/config.jsp" %>
+<c:set var="curmenu" value="prd"></c:set>
 <!DOCTYPE html>
 <html lang="en">
 <head>
