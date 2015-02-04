@@ -50,7 +50,7 @@
 			</a>
 		</li>
 
-		<li>
+		<li class="<c:if test="${curmenu=='unit' || curmenu=='ownent' || curmenu=='prdtype'}">active open</c:if>">
 			<a href="#" class="dropdown-toggle">
 				<i class="icon-th"></i>
 				<span class="menu-text"> 系统设置 </span>
@@ -66,15 +66,15 @@
 					</a>
 				</li>
 
-				<li>
-					<a href="buttons.html">
+				<li  class="<c:if test="${curmenu=='ownent'}">active</c:if>">
+					<a href="${root }/ownent/index">
 						<i class="icon-double-angle-right"></i>
 						企业管理
 					</a>
 				</li>
 
-				<li>
-					<a href="treeview.html">
+				<li class="<c:if test="${curmenu=='prdtype'}">active</c:if>">
+					<a href="${root }/prdtype/index">
 						<i class="icon-double-angle-right"></i>
 						类别管理
 					</a>

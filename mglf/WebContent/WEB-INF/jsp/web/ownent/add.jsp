@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../../comm/taglibs.jsp" %>
 <%@ include file="../../comm/config.jsp" %>
-<c:set var="curmenu" value="unit"></c:set>
+<c:set var="curmenu" value="ownent"></c:set>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,20 +47,20 @@ float: left;
 					<div class="row">
 						<div class="col-xs-12">
 							
-							<form action="${root }/unit/adddo" method="post" class="form-horizontal" id="unitform">
+							<form action="${root }/ownent/adddo" method="post" class="form-horizontal" id="unitform">
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="unitid"> 编号 </label>
 									<div class="col-sm-9">
-										<input type="text" id="unitid" name="num" tabindex="1" placeholder="编号可以让您更方便找到该计量单位  如：001、002、003" class="col-xs-10 col-sm-5" value=""/>
+										<input type="text" id="unitid" name="num" tabindex="1" placeholder="编号可以让您更方便找到该企业  如：001、002、003" class="col-xs-10 col-sm-5" value=""/>
 									</div>
 								</div>
 
 								<div class="space-4"></div>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 单位名称 </label>
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 企业名称 </label>
 									<div class="col-sm-9">
-										<input type="text" name="name" tabindex="2" placeholder="商品名称" class="col-xs-10 col-sm-5" />
+										<input type="text" name="name" tabindex="2" placeholder="企业名称" class="col-xs-10 col-sm-5" />
 									</div>
 								</div>
 								
@@ -113,7 +113,7 @@ float: left;
 							required: "编号不能为空，请输入对应的编号。"
 						},
 						name: {
-							required: "单位名称不能为空，请输入单位名称。"
+							required: "企业名称不能为空，请输入企业名称。"
 						}
 					},
 					highlight: function (e) {

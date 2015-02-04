@@ -8,6 +8,9 @@
 <script type="text/javascript">
 	if("ontouchend" in document) document.write("<script src='${root }/static/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 </script>
+
+<script src="${root }/mglf/js"></script>
+
 <script src="${root }/static/assets/js/bootstrap.min.js"></script>
 <script src="${root }/static/assets/js/typeahead-bs2.min.js"></script>
 
