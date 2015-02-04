@@ -40,10 +40,10 @@ public class SupplierService {
 	public String getMaxNum(String entid){
 		Supplier supplier = supplierMapper.selectMaxNum(entid);
 		if(EmptyUtil.isEmpty(supplier)){
-			return "o0000001";
+			return "s0000001";
 		}
 		int n = Integer.parseInt(supplier.getNum().substring(1)) + 10000000;
-		return "o" + String.valueOf(++n).substring(1);		
+		return "s" + String.valueOf(++n).substring(1);		
 	}
 	
 	@Transactional(readOnly=true)
