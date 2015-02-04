@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mglf.dto.UserDetails;
 import com.mglf.entity.Dic;
+import com.mglf.entity.Supplier;
 import com.mglf.util.SpringSecurityUtils;
 
 @Service
@@ -16,6 +17,8 @@ import com.mglf.util.SpringSecurityUtils;
 public class StaticValueService {
 	@Autowired
 	private DicService dicService;
+	@Autowired
+	private SupplierService supplierService;
 	
 	@Transactional(readOnly=true)
 	public void initStaticValueString(){
@@ -49,6 +52,16 @@ public class StaticValueService {
 		}
 		s += "];";
 		content.append(s);
+		
+		//供应商
+		List<Supplier> supplierList = supplierService.getSupplierByEntid(loginUser.getEntid());
+		s = "var baseSupplier=[''";
+		for(Supplier dic : supplierList){
+			s += ",'" + dic.getNum()+" " + dic.getEntname()+"'";
+		}
+		s += "];";
+		content.append(s);
+		
 		loginUser.setStaticValue(content.toString());
 	}
 }
