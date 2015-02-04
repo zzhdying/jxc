@@ -39,7 +39,7 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12">
-							<div>
+							<div class="m-b-10x">
 								<a href="${root }/prd/add" class="btn btn-default radius-4">
 									<i class="icon-plus align-top"></i>
 									添&nbsp;加

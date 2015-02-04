@@ -85,22 +85,18 @@ float: left;
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="form-prdtype"> 所属类别 </label>
 									<div class="col-sm-9">
-										<div class="col-xs-10 col-sm-5" style="padding-left:0px">
-										<select class="width-100 chosen-select" tabindex="4" name="prdTypeId" id="form-prdtype" data-placeholder="Choose a Country...">
-											<option value="">&nbsp;</option>
-											<option value="AL">Alabama</option>
-											<option value="AK">Alaska</option>
-										</select>
-										</div>
+										<input type="text" id="form-prdtype" name="prdTypeId" tabindex="4" class="tag-input" placeholder="请输入商品的所属类别 如 纸巾、食品" /> 
+										<span class="help-inline col-xs-12 col-sm-7">
+											<span class="middle"> 回车确认输入</span>
+										</span>
 									</div>
 								</div>
 								
 								<div class="space-4"></div>
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="ownEntname">所属公司</label>
-
 									<div class="col-sm-9">
-										<input type="text" name="ownEntname " tabindex="5" class="tag-input"  id="ownEntname" placeholder="请输入商品所属的公司名称 如：恒安集团。" /> 
+										<input type="text" id="ownEntname" name="ownEntname" tabindex="5" class="tag-input"  placeholder="请输入商品所属的公司名称 如：恒安集团。" /> 
 										<span class="help-inline col-xs-12 col-sm-7">
 											<span class="middle"> 回车确认输入</span>
 										</span>
@@ -188,6 +184,11 @@ float: left;
 					placeholder:$("#ownEntname").attr('placeholder'),
 					tabindex:$("#ownEntname").attr('tabindex'),
 					source: ["001 恒安集团","002 钟氏集团"]
+				});
+				$("#form-prdtype").tag({
+					placeholder:$("#form-prdtype").attr('placeholder'),
+					tabindex:$("#form-prdtype").attr('tabindex'),
+					source: ["001 抽纸","002 卫生巾"]
 				});
 				
 				$(".chosen-select").chosen(); 
