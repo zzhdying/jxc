@@ -50,7 +50,7 @@
 			</a>
 		</li>
 
-		<li class="<c:if test="${curmenu=='unit' || curmenu=='ownent' || curmenu=='prdtype'}">active open</c:if>">
+		<li class="<c:if test="${curmenu=='unit' || curmenu=='ownent' || curmenu=='prdtype' || curmenu=='supplier'}">active open</c:if>">
 			<a href="#" class="dropdown-toggle">
 				<i class="icon-th"></i>
 				<span class="menu-text"> 系统设置 </span>
@@ -77,6 +77,13 @@
 					<a href="${root }/prdtype/index">
 						<i class="icon-double-angle-right"></i>
 						类别管理
+					</a>
+				</li>
+				
+				<li class="<c:if test="${curmenu=='supplier'}">active</c:if>">
+					<a href="${root }/supplier/index">
+						<i class="icon-double-angle-right"></i>
+						供应商管理
 					</a>
 				</li>
 			</ul>
