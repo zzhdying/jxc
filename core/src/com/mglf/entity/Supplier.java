@@ -8,6 +8,8 @@ public class Supplier   extends BaseEntity{
     private String id;
 
     private String num;
+    
+    private String entid;
 
     private String address;
 
@@ -104,4 +106,14 @@ public class Supplier   extends BaseEntity{
     public void setUpdateUser(String updateUser) {
         this.updateUser = updateUser == null ? null : updateUser.trim();
     }
+
+	public String getEntid() {
+		return entid;
+	}
+
+	public void setEntid(String entid) {
+		this.entid = entid;
+	}
+    
+    
 }

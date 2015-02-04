@@ -67,7 +67,7 @@ public class SupplierService {
 	@Transactional(readOnly=false)
 	public void add(Supplier supplier){
 		supplier.setId(UUID.randomUUID().toString());
-		supplier.setEntname(SpringSecurityUtils.getLoginUser().getEntid());
+		supplier.setEntid(SpringSecurityUtils.getLoginUser().getEntid());
 		supplier.setNum(getMaxNum(SpringSecurityUtils.getLoginUser().getEntid()));
 		supplier.setCreateUser(SpringSecurityUtils.getLoginUser().getUserId());
 		supplier.setCreateDate(new Date());
