@@ -1,5 +1,6 @@
 package com.mglf.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.mglf.base.BaseEntity;
@@ -18,7 +19,11 @@ public class Order  extends BaseEntity {
 
     private String supplierId;
 
-    private Long price;
+    private BigDecimal buyPrice;
+    
+    private BigDecimal sellPrice;
+    
+    private BigDecimal prdCount;
 
     private Date createTime;
 
@@ -50,14 +55,6 @@ public class Order  extends BaseEntity {
 
     public void setSupplierId(String supplierId) {
         this.supplierId = supplierId == null ? null : supplierId.trim();
-    }
-
-    public Long getPrice() {
-        return price;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
     }
 
     public Date getCreateTime() {
@@ -98,6 +95,30 @@ public class Order  extends BaseEntity {
 
 	public void setEntid(String entid) {
 		this.entid = entid;
+	}
+
+	public BigDecimal getBuyPrice() {
+		return buyPrice;
+	}
+
+	public void setBuyPrice(BigDecimal buyPrice) {
+		this.buyPrice = buyPrice;
+	}
+
+	public BigDecimal getSellPrice() {
+		return sellPrice;
+	}
+
+	public void setSellPrice(BigDecimal sellPrice) {
+		this.sellPrice = sellPrice;
+	}
+
+	public BigDecimal getPrdCount() {
+		return prdCount;
+	}
+
+	public void setPrdCount(BigDecimal prdCount) {
+		this.prdCount = prdCount;
 	}
     
 }

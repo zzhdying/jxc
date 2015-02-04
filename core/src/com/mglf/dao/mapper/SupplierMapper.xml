@@ -92,7 +92,7 @@
   </update>
   
   <select id="selectMaxNum" parameterType="String" resultMap="SupplierResultMap">
-      select * from t_supplier where entid=#{entid} order by num limit 0,1      
+      select * from t_supplier where entid=#{entid} order by num desc limit 0,1      
   </select>
   
   

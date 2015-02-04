@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mglf.dao.OrderMapper" >
-  <resultMap id="SupplierResultMap" type="com.mglf.entity.Order" >
+  <resultMap id="OrderResultMap" type="com.mglf.entity.Order" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="num" property="num" jdbcType="VARCHAR" />
     <result column="entid" property="entid" jdbcType="VARCHAR" />
     <result column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
-    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="buy_price" property="buyPrice" jdbcType="DECIMAL" />
+    <result column="sell_price" property="sellPrice" jdbcType="DECIMAL" />
+    <result column="prd_count" property="prdCount" jdbcType="DECIMAL" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
   </resultMap>
   
-  <select id="selectBy" resultMap="SupplierResultMap" parameterType="map" >
+  <select id="selectBy" resultMap="OrderResultMap" parameterType="map" >
     select * 
     from t_order
     where 1=1 
@@ -30,10 +32,12 @@
   </delete>
   <insert id="insert" parameterType="com.mglf.entity.Order" >
     insert into t_order (id, num, supplier_id, entid,
-      price, create_time, create_user, 
+      buy_price,sell_price,prd_count,
+      create_time, create_user, 
       update_time, update_user)
     values (#{id,jdbcType=VARCHAR}, #{num,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{entid,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{buyPrice,jdbcType=DECIMAL}, #{sellPrice,jdbcType=DECIMAL}, #{prdCount,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR})
   </insert>
   
@@ -49,8 +53,14 @@
       <if test="supplierId != null" >
         supplier_id = #{supplierId,jdbcType=VARCHAR},
       </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=DECIMAL},
+      <if test="buyPrice != null" >
+        buy_price = #{buyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sell_price != null" >
+        sell_price = #{sellPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="prd_count != null" >
+        prd_count = #{prdCount,jdbcType=DECIMAL},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -72,11 +82,17 @@
     set num = #{num,jdbcType=VARCHAR},
       entid = #{entid,jdbcType=VARCHAR},
       supplier_id = #{supplierId,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL},
+      buy_price = #{buyPrice,jdbcType=DECIMAL},
+      sell_price = #{sellPrice,jdbcType=DECIMAL},
+      prd_count = #{prdCount,jdbcType=DECIMAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       update_user = #{updateUser,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="selectMaxNum" parameterType="String" resultMap="OrderResultMap">
+      select * from t_order where entid=#{entid} order by num desc limit 0,1
+  </select>
 </mapper>

@@ -16,4 +16,6 @@ public interface OrderMapper {
     public int updateByPrimaryKeySelective(Order record);
 
     public int updateByPrimaryKey(Order record);
+    
+    public Order selectMaxNum(String entid);
 }
