@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mglf.dao.SupplierMapper" >
-  <resultMap id="BaseResultMap" type="com.mglf.entity.Supplier" >
+  <resultMap id="SupplierResultMap" type="com.mglf.entity.Supplier" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="num" property="num" jdbcType="VARCHAR" />
     <result column="entid" property="entid" jdbcType="VARCHAR" />
@@ -14,10 +14,16 @@
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
   </resultMap>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectBy" resultMap="SupplierResultMap" parameterType="map" >
     select * 
     from t_supplier
-    where id = #{id,jdbcType=VARCHAR}
+    where 1=1 
+    <if test="id!=null and id!=''">
+        and id = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="entid!=null and entid !=''">
+        and entid = #{entid,jdbcType=VARCHAR}
+    </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_supplier
@@ -84,4 +90,13 @@
       update_user = #{updateUser,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="selectMaxNum" parameterType="String" resultMap="SupplierResultMap">
+      select * from t_supplier where entid=#{entid} order by num limit 0,1      
+  </select>
+  
+  
+  
+  
+  
 </mapper>
