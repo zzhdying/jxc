@@ -10,6 +10,8 @@ public class Dic  extends BaseEntity {
     private String entid;
 
     private String num;
+    
+    private String code;
 
     private String name;
 
@@ -26,7 +28,22 @@ public class Dic  extends BaseEntity {
     private Date updateTime;
 
     private String updateUser;
-
+    
+    /**
+     * 商品单位
+     */
+    public static final String PRD_UNIT = "PRD_UNIT";
+    
+    /**
+     * 商品所属企业
+     */
+    public static final String PRD_OWNENTNAME = "PRD_OWNENTNAME";
+    
+    /**
+     * 商品所属类别
+     */
+    public static final String PRD_TYPE = "PRD_TYPE";
+    
     public String getId() {
         return id;
     }
@@ -114,4 +131,14 @@ public class Dic  extends BaseEntity {
     public void setUpdateUser(String updateUser) {
         this.updateUser = updateUser == null ? null : updateUser.trim();
     }
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+    
+    
 }

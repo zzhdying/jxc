@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mglf.dao.DicMapper" >
-  <resultMap id="BaseResultMap" type="com.mglf.entity.Dic" >
+  <resultMap id="DicResultMap" type="com.mglf.entity.Dic" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="entid" property="entid" jdbcType="VARCHAR" />
     <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="value" property="value" jdbcType="VARCHAR" />
     <result column="desciprtion" property="desciprtion" jdbcType="VARCHAR" />
@@ -14,103 +15,36 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, entid, num, name, value, desciprtion, parent_id, create_time, create_user, update_time, 
-    update_user
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
+  <select id="selectBy" resultMap="DicResultMap" parameterType="map" >
+    select * 
     from t_dic
-    where id = #{id,jdbcType=VARCHAR}
+    where 1=1 
+    <if test="id!=null and id!=''">
+        and id = #{id,jdbcType=VARCHAR}        
+    </if>
+    <if test="code!=null and code !=''">
+        and code= #{code,jdbcType=VARCHAR}  
+    </if>
+    <if test="entid!=null and entid !=''">
+        and entid=#{entid}
+    </if>
+    order by num desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_dic
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.mglf.entity.Dic" >
-    insert into t_dic (id, entid, num, 
+    insert into t_dic (id, entid, num, code,
       name, value, desciprtion, 
       parent_id, create_time, create_user, 
       update_time, update_user)
-    values (#{id,jdbcType=VARCHAR}, #{entid,jdbcType=VARCHAR}, #{num,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{entid,jdbcType=VARCHAR}, #{num,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{desciprtion,jdbcType=VARCHAR}, 
       #{parentId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.mglf.entity.Dic" >
-    insert into t_dic
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="entid != null" >
-        entid,
-      </if>
-      <if test="num != null" >
-        num,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="value != null" >
-        value,
-      </if>
-      <if test="desciprtion != null" >
-        desciprtion,
-      </if>
-      <if test="parentId != null" >
-        parent_id,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="createUser != null" >
-        create_user,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="updateUser != null" >
-        update_user,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="entid != null" >
-        #{entid,jdbcType=VARCHAR},
-      </if>
-      <if test="num != null" >
-        #{num,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="value != null" >
-        #{value,jdbcType=VARCHAR},
-      </if>
-      <if test="desciprtion != null" >
-        #{desciprtion,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null" >
-        #{parentId,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createUser != null" >
-        #{createUser,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateUser != null" >
-        #{updateUser,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.mglf.entity.Dic" >
     update t_dic
     <set >
@@ -122,6 +56,9 @@
       </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
       </if>
       <if test="value != null" >
         value = #{value,jdbcType=VARCHAR},
@@ -152,6 +89,7 @@
     set entid = #{entid,jdbcType=VARCHAR},
       num = #{num,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
       value = #{value,jdbcType=VARCHAR},
       desciprtion = #{desciprtion,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=VARCHAR},

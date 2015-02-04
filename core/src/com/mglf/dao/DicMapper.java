@@ -1,17 +1,18 @@
 package com.mglf.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.mglf.entity.Dic;
 
 public interface DicMapper {
-    int deleteByPrimaryKey(String id);
+    public int deleteByPrimaryKey(String id);
 
-    int insert(Dic record);
+    public int insert(Dic record);
 
-    int insertSelective(Dic record);
+    public List<Dic> selectBy(Map<String,Object> map);
 
-    Dic selectByPrimaryKey(String id);
+    public int updateByPrimaryKeySelective(Dic record);
 
-    int updateByPrimaryKeySelective(Dic record);
-
-    int updateByPrimaryKey(Dic record);
+    public int updateByPrimaryKey(Dic record);
 }
