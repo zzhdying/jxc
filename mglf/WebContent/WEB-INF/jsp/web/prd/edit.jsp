@@ -47,6 +47,8 @@ float: left;
 					</div>
 					<div class="row">
 						<div class="col-xs-12">
+							<%-- 后退按钮 --%>
+							<%@ include file="../../comm/goBackBtn.jsp" %>
 							<form action="${root }/prd/editdo" method="post" class="form-horizontal" id="prdform">
 								<input type="hidden" name="num" value="${prd.num }"/>
 								<input type="hidden" name="id" value="${prd.id }">
@@ -157,8 +159,8 @@ float: left;
 										</button>
 										
 										&nbsp; &nbsp; &nbsp;
-										<button class="btn" type="reset" tabindex="10">
-											<i class="icon-undo bigger-110"></i>
+										<button id="gobackBtn" class="btn" type="button" tabindex="10">
+											<i class="icon-chevron-left bigger-110"></i>
 											返&nbsp;回
 										</button>
 									</div>
@@ -179,7 +181,9 @@ float: left;
 
 		<script type="text/javascript">
 			jQuery(function($) {
-				
+				$("#gobackBtn").click(function(){
+					history.go(-1);
+				});
 				$("#form-unit").tag({
 					placeholder:$("#form-unit").attr('placeholder'),
 					tabindex:$("#form-unit").attr('tabindex'),

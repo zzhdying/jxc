@@ -39,7 +39,8 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12">
-								
+							<%-- 后退按钮 --%>
+							<%@ include file="../comm/goBackBtn.jsp" %>	
 	
 	
 							

@@ -39,6 +39,13 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12">
+							<div>
+								<a href="${root }/prd/add" class="btn btn-default radius-4">
+									<i class="icon-plus align-top"></i>
+									添&nbsp;加
+								</a>
+							</div>
+							
 							<div class="table-responsive">
 								<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 									<thead>
@@ -58,7 +65,7 @@
 
 									<tbody>
 										<c:forEach items="${prdlist }" var="item">
-											<tr>
+											<tr data-key="${item.id }">
 												<td>${item.num }</td>
 												<td>${item.name }</td>
 												<td>${item.prdTypeId }</td>
@@ -108,7 +115,9 @@
 
 		<script type="text/javascript">
 			jQuery(function($) {
-				
+				$("#sample-table-1 tr").dblclick(function(){
+					location.href = "${root}/prd/edit/"+$(this).attr("data-key");
+				});
 				$(".edit-btn").click(function(){
 					location.href = "${root}/prd/edit/"+$(this).attr("data-key");
 				});
