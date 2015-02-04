@@ -79,7 +79,7 @@ public class UnitController {
 		dic.setCode(Dic.PRD_UNIT);
 		dicService.update(dic);
 		staticValueService.initStaticValueString();
-		return new ModelAndView("redirect:/prd/index");
+		return new ModelAndView("redirect:/unit/index");
 	}
 	
 	@RequestMapping("/del")
