@@ -3,15 +3,14 @@ package com.mglf.dao;
 import com.mglf.entity.Supplier;
 
 public interface SupplierMapper {
-    int deleteByPrimaryKey(String id);
+   
+	public int deleteByPrimaryKey(String id);
 
-    int insert(Supplier record);
+	public int insert(Supplier record);
 
-    int insertSelective(Supplier record);
+	public Supplier selectByPrimaryKey(String id);
 
-    Supplier selectByPrimaryKey(String id);
+	public int updateByPrimaryKeySelective(Supplier record);
 
-    int updateByPrimaryKeySelective(Supplier record);
-
-    int updateByPrimaryKey(Supplier record);
+	public int updateByPrimaryKey(Supplier record);
 }

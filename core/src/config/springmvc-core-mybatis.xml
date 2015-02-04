@@ -38,4 +38,8 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 		<property name="mapperInterface" value="com.mglf.dao.DicMapper" />
 	</bean>
+	<bean id="supplierMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="mapperInterface" value="com.mglf.dao.SupplierMapper" />
+	</bean>
 </beans>

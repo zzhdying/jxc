@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.mglf.entity.Supplier" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="entid" property="entid" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="entname" property="entname" jdbcType="VARCHAR" />
@@ -13,13 +14,8 @@
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, num, address, name, entname, linkphone, create_date, create_user, update_date, 
-    update_user
-  </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
+    select * 
     from t_supplier
     where id = #{id,jdbcType=VARCHAR}
   </select>
@@ -28,87 +24,24 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.mglf.entity.Supplier" >
-    insert into t_supplier (id, num, address, 
+    insert into t_supplier (id, num, address, entid,
       name, entname, linkphone, 
       create_date, create_user, update_date, 
       update_user)
-    values (#{id,jdbcType=VARCHAR}, #{num,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{num,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},  #{entid,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{entname,jdbcType=VARCHAR}, #{linkphone,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
       #{updateUser,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.mglf.entity.Supplier" >
-    insert into t_supplier
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="num != null" >
-        num,
-      </if>
-      <if test="address != null" >
-        address,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="entname != null" >
-        entname,
-      </if>
-      <if test="linkphone != null" >
-        linkphone,
-      </if>
-      <if test="createDate != null" >
-        create_date,
-      </if>
-      <if test="createUser != null" >
-        create_user,
-      </if>
-      <if test="updateDate != null" >
-        update_date,
-      </if>
-      <if test="updateUser != null" >
-        update_user,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="num != null" >
-        #{num,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="entname != null" >
-        #{entname,jdbcType=VARCHAR},
-      </if>
-      <if test="linkphone != null" >
-        #{linkphone,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null" >
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createUser != null" >
-        #{createUser,jdbcType=VARCHAR},
-      </if>
-      <if test="updateDate != null" >
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateUser != null" >
-        #{updateUser,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
+  
   <update id="updateByPrimaryKeySelective" parameterType="com.mglf.entity.Supplier" >
     update t_supplier
     <set >
       <if test="num != null" >
         num = #{num,jdbcType=VARCHAR},
+      </if>
+       <if test="entid != null" >
+        entid = #{entid,jdbcType=VARCHAR},
       </if>
       <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
@@ -140,6 +73,7 @@
   <update id="updateByPrimaryKey" parameterType="com.mglf.entity.Supplier" >
     update t_supplier
     set num = #{num,jdbcType=VARCHAR},
+      entid = #{entid,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       entname = #{entname,jdbcType=VARCHAR},

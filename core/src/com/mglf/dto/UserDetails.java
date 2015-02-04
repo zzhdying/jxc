@@ -2,6 +2,7 @@ package com.mglf.dto;
 
 import com.mglf.entity.User;
 import com.mglf.util.ConfigUtil;
+import com.mglf.util.EmptyUtil;
 
 
 
@@ -10,13 +11,13 @@ import com.mglf.util.ConfigUtil;
  * per用户登陆信息DTO
  * @author zhuben
  */
-public class UserDetails  extends LoginUserDetails  {
-
+public class UserDetails  extends LoginUserDetails  {	
 	/**
 	 * per用户实体对象
 	 */
 	private User user;
 	
+	private String staticValue;
 
 	public UserDetails(User user) {
 		this.user = user;
@@ -107,6 +108,12 @@ public class UserDetails  extends LoginUserDetails  {
 	public String getSalt() {
 		return user.getId() + ConfigUtil.readSysValue("pwdRandom");
 	}
-	
 
+	public String getStaticValue() {
+		return staticValue;
+	}
+
+	public void setStaticValue(String staticValue) {
+		this.staticValue = staticValue;
+	}
 }
