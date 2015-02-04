@@ -25,8 +25,8 @@ import com.mglf.util.SpringSecurityUtils;
 import com.sun.org.glassfish.external.statistics.annotations.Reset;
 
 @Controller
-@RequestMapping("/unit")
-public class UnitController {
+@RequestMapping("/prdtype")
+public class PrdTypeController {
 	
 	@Autowired
 	private DicService dicService;
@@ -37,24 +37,24 @@ public class UnitController {
 	public ModelAndView idx() throws Exception {
 		UserDetails loginUser = (UserDetails)SpringSecurityUtils.getLoginUser();
 		ModelMap map = new ModelMap();
-		List<Dic> dicList = dicService.getDicByCode(Dic.PRD_UNIT, loginUser.getEntid());
-		map.put("unitlist", dicList);
-		return new ModelAndView("web/unit/index.jsp", map);
+		List<Dic> dicList = dicService.getDicByCode(Dic.PRD_TYPE, loginUser.getEntid());
+		map.put("diclist", dicList);
+		return new ModelAndView("web/prdtype/index.jsp", map);
 	}
 	
 	@RequestMapping("/add")
 	public ModelAndView add() throws Exception {
 		ModelMap map = new ModelMap();
-		return new ModelAndView("web/unit/add.jsp", map);
+		return new ModelAndView("web/prdtype/add.jsp", map);
 	}
 	
 	@RequestMapping("/adddo")
 	public ModelAndView adddo(Dic dic) throws Exception {
 		ModelMap map = new ModelMap();
-		dic.setCode(Dic.PRD_UNIT);
+		dic.setCode(Dic.PRD_TYPE);
 		dicService.add(dic);
 		staticValueService.initStaticValueString();
-		return new ModelAndView("redirect:/unit/index", map);
+		return new ModelAndView("redirect:/prdtype/index", map);
 	}
 	
 	@RequestMapping("/edit/{id}")
@@ -64,8 +64,8 @@ public class UnitController {
 			throw new AppException();
 		}
 		Dic dic = dicService.getDicById(id);
-		map.addAttribute("unit", dic);
-		return new ModelAndView("web/unit/edit.jsp", map);
+		map.addAttribute("dic", dic);
+		return new ModelAndView("web/prdtype/edit.jsp", map);
 	}
 	
 	@RequestMapping("/editdo")
@@ -76,10 +76,10 @@ public class UnitController {
 			throw new AppException();
 		}
 		dic.setEntid(loginUser.getEntid());
-		dic.setCode(Dic.PRD_UNIT);
+		dic.setCode(Dic.PRD_TYPE);
 		dicService.update(dic);
 		staticValueService.initStaticValueString();
-		return new ModelAndView("redirect:/prd/index");
+		return new ModelAndView("redirect:/prdtype/index");
 	}
 	
 	@RequestMapping("/del")
@@ -89,5 +89,4 @@ public class UnitController {
 		staticValueService.initStaticValueString();
 		return new JsonResult<String>();
 	}
-	
 }
