@@ -15,7 +15,9 @@ import com.mglf.dao.PrdMapper;
 import com.mglf.dto.JsonResult;
 import com.mglf.dto.LoginUserDetails;
 import com.mglf.dto.UserDetails;
+import com.mglf.entity.Order;
 import com.mglf.entity.Prd;
+import com.mglf.service.OrderService;
 import com.mglf.service.PrdService;
 import com.mglf.util.EmptyUtil;
 import com.mglf.util.SpringSecurityUtils;
@@ -28,37 +30,35 @@ public class OrderController {
 	@Autowired
 	private PrdService prdService;
 	
+	@Autowired
+	private OrderService orderService;
+	
 	@RequestMapping("/index")
 	public ModelAndView idx(String address) throws Exception {
 		UserDetails loginUser = (UserDetails)SpringSecurityUtils.getLoginUser();
 		ModelMap map = new ModelMap();
-		List<Prd> prdList = prdService.getEntAllPrds(loginUser.getEntid());
-		map.put("prdlist", prdList);
-		return new ModelAndView("web/prd/prd.jsp", map);
+		List<Order> list = orderService.getByEntid(loginUser.getEntid());
+		map.put("list", list);
+		return new ModelAndView("web/order/index.jsp", map);
 	}
 	
 	@RequestMapping("/add")
 	public ModelAndView add() throws Exception {
 		ModelMap map = new ModelMap();
-		return new ModelAndView("web/prd/add.jsp", map);
+		Order order = new Order();
+		orderService.add(order);
+		return new ModelAndView("redirect:/order/edit/"+order.getId(), map);
 	}
-	
-	@RequestMapping("/adddo")
-	public ModelAndView adddo(Prd prd) throws Exception {
-		ModelMap map = new ModelMap();
-		prdService.add(prd);
-		return new ModelAndView("redirect:/prd/index", map);
-	}
-	
+
 	@RequestMapping("/edit/{id}")
 	public ModelAndView edit(@PathVariable("id") String id) throws Exception {
 		ModelMap map = new ModelMap();
 		if(EmptyUtil.isEmpty(id)){
 			throw new AppException();
 		}
-		Prd prd = prdService.getPrdByid(id);
-		map.addAttribute("prd", prd);
-		return new ModelAndView("web/prd/edit.jsp", map);
+		Order order = orderService.getByid(id);
+		map.addAttribute("order", order);
+		return new ModelAndView("web/order/edit.jsp", map);
 	}
 	
 	@RequestMapping("/editdo")
