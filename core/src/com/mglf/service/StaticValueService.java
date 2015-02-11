@@ -34,6 +34,14 @@ public class StaticValueService {
 		}
 		s += "];";
 		content.append(s);
+		s = "var baseUnitValue=[''";
+		for(Dic dic : dicList){		
+			if(dic.getCode().equals(Dic.PRD_UNIT)){
+				s += ",'" + dic.getNum()+"'";
+			}
+		}
+		s += "];";
+		content.append(s);
 		
 		s = "var baseOwnent=[''";
 		for(Dic dic : dicList){		

@@ -24,6 +24,8 @@ public class Order  extends BaseEntity {
     private BigDecimal sellPrice;
     
     private BigDecimal prdCount;
+    
+    private Integer isOk;
 
     private Date createTime;
 
@@ -33,6 +35,10 @@ public class Order  extends BaseEntity {
 
     private String updateUser;
 
+    public static int NOT_OK = 0;
+    
+    public static int OK = 1;
+    
     public String getId() {
         return id;
     }
@@ -119,6 +125,14 @@ public class Order  extends BaseEntity {
 
 	public void setPrdCount(BigDecimal prdCount) {
 		this.prdCount = prdCount;
+	}
+
+	public Integer getIsOk() {
+		return isOk;
+	}
+
+	public void setIsOk(Integer isOk) {
+		this.isOk = isOk;
 	}
     
 }

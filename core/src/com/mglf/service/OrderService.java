@@ -1,5 +1,6 @@
 package com.mglf.service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -67,13 +68,18 @@ public class OrderService {
 	}
 	
 	@Transactional(readOnly=false)
-	public void add(Order order){
+	public Order add(Order order){
 		order.setId(UUID.randomUUID().toString());
 		order.setEntid(SpringSecurityUtils.getLoginUser().getEntid());
 		order.setNum(getMaxNum(SpringSecurityUtils.getLoginUser().getEntid()));
 		order.setCreateUser(SpringSecurityUtils.getLoginUser().getUserId());
 		order.setCreateTime(new Date());
+		order.setIsOk(Order.NOT_OK);
+		order.setPrdCount(BigDecimal.ZERO);
+		order.setBuyPrice(BigDecimal.ZERO);
+		order.setSellPrice(BigDecimal.ZERO);
 		orderMapper.insert(order);
+		return order;
 	}
 	
 	@Transactional(readOnly=false)

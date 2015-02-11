@@ -9,6 +9,7 @@
     <result column="buy_price" property="buyPrice" jdbcType="DECIMAL" />
     <result column="sell_price" property="sellPrice" jdbcType="DECIMAL" />
     <result column="prd_count" property="prdCount" jdbcType="DECIMAL" />
+    <result column="is_ok" property="isOk" jdbcType="TINYINT"/>
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -25,6 +26,9 @@
     <if test="entid!=null and entid!=''">
         and entid = #{entid,jdbcType=VARCHAR}
     </if>
+    <if test="isOk!=null and isOk!=''">
+        and isOk=#{isOk}
+    </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_order
@@ -32,11 +36,11 @@
   </delete>
   <insert id="insert" parameterType="com.mglf.entity.Order" >
     insert into t_order (id, num, supplier_id, entid,
-      buy_price,sell_price,prd_count,
+      buy_price,sell_price,prd_count,is_ok,
       create_time, create_user, 
       update_time, update_user)
     values (#{id,jdbcType=VARCHAR}, #{num,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{entid,jdbcType=VARCHAR}, 
-      #{buyPrice,jdbcType=DECIMAL}, #{sellPrice,jdbcType=DECIMAL}, #{prdCount,jdbcType=DECIMAL}, 
+      #{buyPrice,jdbcType=DECIMAL}, #{sellPrice,jdbcType=DECIMAL}, #{prdCount,jdbcType=DECIMAL}, #{isOk,jdbcType=TINYINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR})
   </insert>
@@ -62,6 +66,9 @@
       <if test="prd_count != null" >
         prd_count = #{prdCount,jdbcType=DECIMAL},
       </if>
+      <if test="isOk != null" >
+        is_ok = #{isOk,jdbcType=TINYINT},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -85,6 +92,7 @@
       buy_price = #{buyPrice,jdbcType=DECIMAL},
       sell_price = #{sellPrice,jdbcType=DECIMAL},
       prd_count = #{prdCount,jdbcType=DECIMAL},
+      is_ok = #{isOk,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
