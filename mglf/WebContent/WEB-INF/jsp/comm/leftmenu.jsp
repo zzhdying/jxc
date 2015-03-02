@@ -42,7 +42,14 @@
 				<span class="menu-text"> 首页 </span>
 			</a>
 		</li>
-
+		
+		<li class="<c:if test="${curmenu=='order'}">active</c:if>">
+			<a href="${root }/order/index">
+				<i class="icon-shopping-cart"></i>
+				<span class="menu-text"> 采购单 </span>
+			</a>
+		</li>
+		
 		<li class="<c:if test="${curmenu=='prd'}">active</c:if>">
 			<a href="${root }/prd/index">
 				<i class="icon-gift"></i>

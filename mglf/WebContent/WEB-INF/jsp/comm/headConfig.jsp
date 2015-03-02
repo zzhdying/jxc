@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="${root }/static/assets/css/bootstrap-timepicker.css" />
 <link rel="stylesheet" href="${root }/static/assets/css/daterangepicker.css" />
 <link rel="stylesheet" href="${root }/static/assets/css/colorpicker.css" />
+<link rel="stylesheet" href="${root }/static/assets/css/bootstrap-tags.css" />
 <!-- ace styles -->
 <link rel="stylesheet" href="${root }/static/assets/css/less/css/ace.css" />
 <link rel="stylesheet" href="${root }/static/assets/css/less/css/ace-rtl.css" />

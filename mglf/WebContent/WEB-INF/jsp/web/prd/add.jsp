@@ -53,7 +53,10 @@ float: left;
 								<div class="form-group">
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 条形码 </label>
 									<div class="col-sm-9">
+										<span class="block input-icon input-icon-left">
 										<input type="text" name="code" tabindex="1" placeholder="条形码 注：可手动输入也可以通过扫码枪录入" class="col-xs-10 col-sm-5" value=""/>
+										<i class="icon-barcode"></i>
+										</span>
 										<span class="help-inline col-xs-12 col-sm-7">
 											<span class="middle">条形码商品维一编码，全球唯一。</span>
 										</span>
@@ -111,7 +114,7 @@ float: left;
 									<div class="col-sm-9">
 										<span class="input-icon">
 											<input type="number" tabindex="6" name="buyPrice" class="input-medium f-l" id="buyPrice" placeholder="商品的默认采购价格。"/>
-											<i class="icon-jpy orange2"></i>
+											<i class="icon-jpy"></i>
 											<span class="help-inline col-xs-12 col-sm-7">
 												<span class="middle"> 该价格只是默认值，可在创建采购单时再设当时真实价格</span>
 											</span>
@@ -126,7 +129,7 @@ float: left;
 									<div class="col-sm-9">
 										<span class="input-icon">
 											<input type="number" name="sellPrice" tabindex="7" class="input-medium  f-l" id="sellPrice"  placeholder="商品的默认销售价格。"/>
-											<i class="icon-jpy orange2"></i>
+											<i class="icon-jpy"></i>
 											<span class="help-inline col-xs-12 col-sm-7">
 												<span class="middle"> 该价格只是默认值，可在创建采购单时再设当时真实价格</span>
 											</span>
@@ -179,11 +182,13 @@ float: left;
 				$("#form-unit").tag({
 					placeholder:$("#form-unit").attr('placeholder'),
 					tabindex:$("#form-unit").attr('tabindex'),
+					caseInsensitive:false,
+					allowDuplicates:false,
 					source: baseUnit
 				});
 				$("#ownEntname").tag({
 					placeholder:$("#ownEntname").attr('placeholder'),
-					tabindex:$("#ownEntname").attr('tabindex'),
+					tabfindex:$("#ownEntname").attr('tabindex'),
 					source: baseOwnent
 				});
 				$("#form-prdtype").tag({
